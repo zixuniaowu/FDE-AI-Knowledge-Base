@@ -87,6 +87,19 @@
       "total": 389,
       "boardRateMedian": 150,
       "note": "自動収集（freelance-start + freelance-board = 389 件）。ボード単価サンプル 7 件の中央値 150 万円"
+    },
+    {
+      "date": "2026-10-26",
+      "manual": false,
+      "sources": {
+        "freelance-start": 205,
+        "freelance-board": 198
+      },
+      "freelanceStart": 205,
+      "freelanceBoard": 198,
+      "total": 403,
+      "boardRateMedian": 150,
+      "note": "自動収集（freelance-start + freelance-board = 403 件）。ボード単価サンプル 7 件の中央値 150 万円"
     }
   ]
 }
