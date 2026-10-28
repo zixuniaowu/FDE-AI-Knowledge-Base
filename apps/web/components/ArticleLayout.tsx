@@ -30,6 +30,8 @@ interface Props {
   related?: LinkCard[];
   relatedTitle?: string;
   before?: ReactNode;
+  /** カバー直下のヒーロー図版 */
+  figure?: ReactNode;
   /** カバー見出しの色（indigo / teal / amber / rose）とアイコン */
   accent?: string;
   icon?: IconName;
@@ -73,6 +75,7 @@ export function ArticleLayout(p: Props) {
               ))}
             </p>
           </header>
+          {p.figure && <div className="hero-figure">{p.figure}</div>}
           {p.before}
           <Toc markdown={p.markdown} />
           <Prose markdown={p.markdown} linkBase={p.linkBase} />

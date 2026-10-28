@@ -7,6 +7,7 @@ import { DemandFishbone } from "@/components/DemandFishbone";
 import { MarketSourcesTable } from "@/components/MarketSources";
 import { PageHeader } from "@/components/PageHeader";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { RadialBarsFig } from "@/components/fig/layouts";
 import { Sparkline } from "@/components/Sparkline";
 import { heroMarket } from "@/lib/market";
 
@@ -52,6 +53,17 @@ export default function MarketPage() {
           <span className="kpi-sub">{m.sources} ソース・週次自動収集</span>
         </div>
       </dl>
+      {m.series.length > 0 && (
+        <RadialBarsFig
+          uid="mk-weeks"
+          title="週次の FDE 関連案件数"
+          items={m.series.slice(-6).reverse().map((x) => ({ label: x.date, value: x.total }))}
+          unit="件"
+          centerValue={`${m.total ?? "—"} 件`}
+          centerLabel={`${m.date} 時点`}
+          caption="外側ほど新しい週。値は data/market-history.json（週次の自動収集）のまま"
+        />
+      )}
       <div className="card-grid" style={{ marginBottom: 32 }}>
         <Link href="/references/market-demand" className="card"><strong>需要分析</strong><span>スキル頻度・案件の傾向</span></Link>
         <Link href="/vendors" className="card"><strong>ベンダー動向</strong><span>大手 IT 8 社の AI 推進（出典付き）</span></Link>

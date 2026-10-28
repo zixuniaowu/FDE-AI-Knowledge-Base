@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { listDomains, listGuides, listPatterns, listUseCases } from "@fde/content-core";
+import { PATTERN_FIGURES } from "@/components/fig/specs";
 import { ArticleLayout } from "@/components/ArticleLayout";
 
 export function generateStaticParams() {
@@ -46,6 +47,7 @@ export default function PatternPage({ params }: { params: { slug: string } }) {
       owners={doc.data.owners}
       markdown={doc.content}
       linkBase="/patterns"
+      figure={PATTERN_FIGURES[params.slug]?.()}
       accent="indigo"
       icon="puzzle"
       prev={nav(index - 1)}

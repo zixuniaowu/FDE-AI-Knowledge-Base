@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { p } from "./helpers";
 import { REDIRECTS } from "../apps/web/lib/site";
@@ -326,5 +326,63 @@ test.describe("404 とアセット", () => {
     expect(await sitemap.text()).toContain("<urlset");
     expect((await request.get(p("/manifest.json"))).status()).toBe(200);
     expect((await request.get(p("/sw.js"))).status()).toBe(200);
+  });
+});
+
+test.describe("図版（v4）", () => {
+  const read = (dir: string) =>
+    readdirSync(join(__dirname, "..", "content", "ja", dir))
+      .filter((f: string) => !f.startsWith("_"))
+      .map((f: string) => f.replace(/\.md$/, ""));
+  const chapters: string[] = read("guide");
+  const patterns: string[] = read("patterns");
+  const domains: string[] = read("domains");
+
+  test("全 14 章・9 パターン・10 領域の数がそろっている", () => {
+    expect(chapters.length).toBe(14);
+    expect(patterns.length).toBe(9);
+    expect(domains.length).toBe(10);
+  });
+
+  for (const [kind, ids] of [["guide", chapters], ["patterns", patterns], ["domains", domains]] as const) {
+    test(`${kind}: 各ページにタイトル付きのヒーロー図版がある`, async ({ page }) => {
+      for (const id of ids) {
+        await page.goto(p(`/${kind}/${id}/`));
+        const svg = page.locator(".hero-figure svg.fig-svg").first();
+        await expect(svg, `${kind}/${id}`).toBeVisible();
+        await expect(svg.locator("title")).not.toHaveText("");
+        expect(await svg.locator("text").count(), `${kind}/${id} のラベル`).toBeGreaterThan(3);
+      }
+    });
+  }
+
+  test("FDE とは何か: 比較マトリクスとポジショニング図がある", async ({ page }) => {
+    await page.goto(p("/guide/what-is-fde/"));
+    const cmp = page.locator("[data-fig=compare]");
+    await expect(cmp).toBeVisible();
+    await expect(cmp.locator("thead th")).toHaveCount(6);
+    await expect(cmp.locator("tbody tr")).toHaveCount(5);
+    await expect(page.locator(".fig-quadrant svg").first()).toBeVisible();
+  });
+
+  test("工程・市場ページに図版がある", async ({ page }) => {
+    await page.goto(p("/process/"));
+    await expect(page.locator("[data-fig=pr-waterfall] svg").first()).toBeVisible();
+    await expect(page.locator("[data-fig=pr-agile] svg").first()).toBeVisible();
+    await page.goto(p("/market/"));
+    await expect(page.locator("[data-fig=mk-weeks] svg").first()).toBeVisible();
+  });
+
+  test("判断表に判定バッジが付く", async ({ page }) => {
+    await page.goto(p("/patterns/rag/"));
+    await expect(page.locator(".dtable-decision .vb-ok").first()).toBeVisible();
+    await expect(page.locator(".dtable-decision .vb-ng").first()).toBeVisible();
+  });
+
+  test("モバイルでは縦レイアウトの図版に切り替わる", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(p("/guide/discovery/"));
+    await expect(page.locator(".hero-figure .fig-tall")).toBeVisible();
+    await expect(page.locator(".hero-figure .fig-wide")).toBeHidden();
   });
 });
