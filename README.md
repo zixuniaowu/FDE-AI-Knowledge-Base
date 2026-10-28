@@ -2,6 +2,7 @@
 
 [![CI](https://github.com/zixuniaowu/FDE-AI-Knowledge-Base/actions/workflows/ci.yml/badge.svg)](https://github.com/zixuniaowu/FDE-AI-Knowledge-Base/actions/workflows/ci.yml)
 [![Deploy](https://github.com/zixuniaowu/FDE-AI-Knowledge-Base/actions/workflows/deploy.yml/badge.svg)](https://github.com/zixuniaowu/FDE-AI-Knowledge-Base/actions/workflows/deploy.yml)
+[![Market batch](https://github.com/zixuniaowu/FDE-AI-Knowledge-Base/actions/workflows/market-batch.yml/badge.svg)](https://github.com/zixuniaowu/FDE-AI-Knowledge-Base/actions/workflows/market-batch.yml)
 ![License](https://img.shields.io/badge/license-MIT%20%2B%20CC--BY%204.0-blue)
 
 > **FDE（Forward Deployed Engineer／前沿部署エンジニア）** は、顧客・事業部の現場に入り、AI を実際の業務に組み込み、**成果指標が動く状態まで責任を持つエンジニア**。アルゴリズムエンジニアは業務を知らず、業務の専門家は AI を知らない——この断絶を埋める、企業の AI 導入で最も不足している役割です。
