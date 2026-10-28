@@ -1,7 +1,7 @@
 {
-  "name": "PDE Knowledge Base",
-  "short_name": "PDE",
-  "description": "PDE（Product Design Engineer）のための実践ナレッジベース",
+  "name": "FDE Knowledge Base",
+  "short_name": "FDE",
+  "description": "FDE（Forward Deployed Engineer）のための実践ナレッジベース",
   "lang": "ja",
   "start_url": "/",
   "display": "standalone",

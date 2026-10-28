@@ -1,13 +1,13 @@
-# @pde/mobile
+# @fde/mobile
 
-PDE ナレッジベースの Expo アプリ。
+FDE ナレッジベースの Expo アプリ。
 
 ## 開発
 
 ```bash
 # リポジトリルートで実行（モバイル用 JSON を生成してから起動）
 pnpm build:mobile-content
-pnpm --filter @pde/mobile start
+pnpm --filter @fde/mobile start
 ```
 
 ## ビルド（EAS）

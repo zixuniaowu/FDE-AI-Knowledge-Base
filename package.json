@@ -1,8 +1,8 @@
 {
-  "name": "pde-ai-knowledge-base",
+  "name": "fde-ai-knowledge-base",
   "version": "0.1.0",
   "private": true,
-  "description": "Prompt-Driven Engineering — あらゆる領域と開発プロセスにAIを組み込むための実践ナレッジベース",
+  "description": "Forward Deployed Engineer — 現場に AI を組み込むための実践ナレッジベース",
   "packageManager": "pnpm@10.28.1",
   "engines": {
     "node": ">=20"
@@ -13,14 +13,17 @@
     ]
   },
   "scripts": {
-    "dev": "pnpm --filter @pde/web dev",
+    "dev": "pnpm --filter @fde/web dev",
     "shot": "node scripts/screenshot.mjs",
-    "build:web": "pnpm --filter @pde/web build",
+    "build:web": "pnpm --filter @fde/web build",
     "typecheck": "pnpm -r typecheck",
     "test": "vitest run",
     "test:e2e": "pnpm build:mobile-content && pnpm build:web && playwright test",
     "validate:content": "tsx scripts/validate-content.ts",
-    "build:mobile-content": "tsx scripts/build-content.ts"
+    "build:mobile-content": "tsx scripts/build-content.ts",
+    "predev": "pnpm build:mobile-content",
+    "prebuild:web": "pnpm build:mobile-content",
+    "pretypecheck": "pnpm build:mobile-content"
   },
   "devDependencies": {
     "@playwright/test": "^1.47.0",

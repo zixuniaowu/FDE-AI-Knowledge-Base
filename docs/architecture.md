@@ -5,7 +5,7 @@ FDE を「巨大でも維持できる」プロジェクトにするための基�
 ## 1. 基本原則: Content as Data
 
 ```
-content/{locale}/**/*.md  ──▶  @pde/content-core（読込 + Zod検証）
+content/{locale}/**/*.md  ──▶  @fde/content-core（読込 + Zod検証）
         │                              │
         ▼                              ▼
    apps/web (Next.js)            apps/mobile (Expo)
@@ -64,7 +64,7 @@ content/{locale}/
 | apps/web | Next.js 14 (App Router, 静的エクスポート) | ビルド時に content-core で直読み → 静的生成。GitHub Pages に自動デプロイ |
 | apps/mobile | Expo | `pnpm build:mobile-content` が生成する JSON をバンドル |
 
-- Web は静的エクスポートなのでホスティングは任意の静的 CDN。basePath は `PDE_BASE_PATH` で制御
+- Web は静的エクスポートなのでホスティングは任意の静的 CDN。basePath は `FDE_BASE_PATH` で制御
 - PWA: service worker によるオフライン閲覧（ページは network-first、静的アセットは cache-first）
 - モバイルは JSON 経由にすることで、コードからコンテンツを完全に分離
 

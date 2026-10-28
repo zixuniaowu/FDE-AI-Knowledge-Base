@@ -1,5 +1,5 @@
-/* PDE Knowledge Base - simple service worker (offline support) */
-const CACHE = "pde-cache-v1";
+/* FDE Knowledge Base - simple service worker (offline support) */
+const CACHE = "fde-cache-v2";
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((c) => c.addAll(["./"])));

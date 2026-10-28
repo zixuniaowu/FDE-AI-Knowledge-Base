@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { listPhases } from "@pde/content-core";
+import { listPhases } from "@fde/content-core";
 import { StatusBadge } from "@/components/Badges";
 import { VModel } from "@/components/VModel";
 

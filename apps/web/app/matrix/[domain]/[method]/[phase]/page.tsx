@@ -7,7 +7,7 @@ import {
   listDomains,
   listPhases,
   listUseCases,
-} from "@pde/content-core";
+} from "@fde/content-core";
 import { Prose } from "@/components/Prose";
 import { StatusBadge } from "@/components/Badges";
 import { extractSections } from "@/lib/markdown";

@@ -1,12 +1,12 @@
 # FDE — Forward Deployed Engineer Knowledge Base
 
-[![CI](https://github.com/zixuniaowu/PDE-AI-Knowledge-Base/actions/workflows/ci.yml/badge.svg)](https://github.com/zixuniaowu/PDE-AI-Knowledge-Base/actions/workflows/ci.yml)
-[![Deploy](https://github.com/zixuniaowu/PDE-AI-Knowledge-Base/actions/workflows/deploy.yml/badge.svg)](https://github.com/zixuniaowu/PDE-AI-Knowledge-Base/actions/workflows/deploy.yml)
+[![CI](https://github.com/zixuniaowu/FDE-AI-Knowledge-Base/actions/workflows/ci.yml/badge.svg)](https://github.com/zixuniaowu/FDE-AI-Knowledge-Base/actions/workflows/ci.yml)
+[![Deploy](https://github.com/zixuniaowu/FDE-AI-Knowledge-Base/actions/workflows/deploy.yml/badge.svg)](https://github.com/zixuniaowu/FDE-AI-Knowledge-Base/actions/workflows/deploy.yml)
 ![License](https://img.shields.io/badge/license-MIT%20%2B%20CC--BY%204.0-blue)
 
 > **FDE（Forward Deployed Engineer／前沿部署エンジニア）** は、顧客・事業部の現場に入り、AI を実際の業務に組み込み、**成果指標が動く状態まで責任を持つエンジニア**。アルゴリズムエンジニアは業務を知らず、業務の専門家は AI を知らない——この断絶を埋める、企業の AI 導入で最も不足している役割です。
 
-**公開サイト**: https://zixuniaowu.github.io/PDE-AI-Knowledge-Base/
+**公開サイト**: https://zixuniaowu.github.io/FDE-AI-Knowledge-Base/
 
 ![ホーム](docs/images/home-hero.png)
 
@@ -57,7 +57,7 @@ NTT データ・富士通・NEC・日立・IBM・アクセンチュアなど 8 �
 ## アーキテクチャ: Content as Data
 
 ```
-content/ja/**/*.md + data/*.json ──▶ @pde/content-core（Zod 検証）
+content/ja/**/*.md + data/*.json ──▶ @fde/content-core（Zod 検証）
         │                                    │
         ▼                                    ▼
   apps/web（Next.js 静的Export）      apps/mobile（Expo）

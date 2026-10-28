@@ -1,5 +1,5 @@
 name: "🗂 新しい領域の提案"
-description: "新しい業務領域を PDE に追加したい"
+description: "新しい業務領域を FDE ナレッジベースに追加したい"
 labels: ["new-domain", "triage"]
 body:
   - type: input

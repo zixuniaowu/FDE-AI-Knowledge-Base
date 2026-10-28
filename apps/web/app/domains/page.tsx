@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { listDomains, listUseCases } from "@pde/content-core";
+import { listDomains, listUseCases } from "@fde/content-core";
 import { StatusBadge } from "@/components/Badges";
 
 export const metadata = { title: "領域" };

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getDomain, listDomains, listIntersections, listUseCases } from "@pde/content-core";
+import { getDomain, listDomains, listIntersections, listUseCases } from "@fde/content-core";
 import { Prose } from "@/components/Prose";
 import { Meta, StatusBadge } from "@/components/Badges";
 

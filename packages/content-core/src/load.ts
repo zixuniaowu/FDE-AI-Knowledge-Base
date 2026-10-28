@@ -28,15 +28,16 @@ export interface ParsedDoc<T> {
   content: string;
 }
 
-const DEFAULT_LOCALE = process.env.PDE_LOCALE ?? "ja";
+const DEFAULT_LOCALE = process.env.FDE_LOCALE ?? process.env.PDE_LOCALE ?? "ja";
 
 /**
  * content/{locale} のルートを解決する。
- * 優先順位: PDE_CONTENT_DIR 環境変数 > cwd から上位に向かって探索
+ * 優先順位: FDE_CONTENT_DIR 環境変数 > cwd から上位に向かって探索
  */
 export function resolveContentRoot(locale = DEFAULT_LOCALE): string {
-  if (process.env.PDE_CONTENT_DIR) {
-    return path.resolve(process.env.PDE_CONTENT_DIR, locale);
+  const contentDir = process.env.FDE_CONTENT_DIR ?? process.env.PDE_CONTENT_DIR;
+  if (contentDir) {
+    return path.resolve(contentDir, locale);
   }
   let dir = process.cwd();
   for (let i = 0; i < 8; i++) {
@@ -47,7 +48,7 @@ export function resolveContentRoot(locale = DEFAULT_LOCALE): string {
     dir = parent;
   }
   throw new Error(
-    `content/${locale} が見つかりません。PDE_CONTENT_DIR を設定するか、リポジトリ内で実行してください。`
+    `content/${locale} が見つかりません。FDE_CONTENT_DIR を設定するか、リポジトリ内で実行してください。`
   );
 }
 

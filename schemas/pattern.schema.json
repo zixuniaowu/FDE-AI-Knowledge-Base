@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "PDE Pattern (cross-domain AI pattern)",
+  "title": "FDE Pattern (cross-domain AI pattern)",
   "description": "content/{locale}/patterns/<id>.md の frontmatter スキーマ",
   "type": "object",
   "required": ["id", "type", "title", "summary", "owners", "status", "updated"],

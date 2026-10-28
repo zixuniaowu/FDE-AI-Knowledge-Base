@@ -6,7 +6,7 @@ import {
   listPhases,
   listReferences,
   listUseCases,
-} from "@pde/content-core";
+} from "@fde/content-core";
 import historyData from "../../../data/market-history.json";
 import { RatePie, StatChips, WeeklyDemandBars } from "@/components/charts";
 import type { MarketSnapshot } from "@/components/charts";

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "PDE Knowledge",
-    "slug": "pde-knowledge",
+    "name": "FDE Knowledge",
+    "slug": "fde-knowledge",
     "version": "0.1.0",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
@@ -11,10 +11,10 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "dev.pde.knowledge"
+      "bundleIdentifier": "dev.fde.knowledge"
     },
     "android": {
-      "package": "dev.pde.knowledge"
+      "package": "dev.fde.knowledge"
     },
     "platforms": ["ios", "android"]
   }
