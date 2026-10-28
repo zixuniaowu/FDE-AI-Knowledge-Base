@@ -27,7 +27,7 @@ export function JobCountChart({
   );
 }
 
-const PIE_COLORS = ["#1e40af", "#2563eb", "#3b82f6", "#60a5fa", "#93c5fd"];
+const PIE_COLORS = ["var(--chart-1)", "var(--chart-2)", "var(--chart-3)", "var(--chart-4)", "var(--chart-5)"];
 
 /** 月額単価の分布を円グラフで表示（純 SVG・クライアント JS 不要） */
 export function RatePie({
@@ -101,7 +101,7 @@ export function RatePie({
                 dominantBaseline="middle"
                 fontSize={13}
                 fontWeight={700}
-                fill={s.color === PIE_COLORS[PIE_COLORS.length - 1] ? "#0b1120" : "#fff"}
+                fill={PIE_COLORS.indexOf(s.color) >= 3 ? "#0e1116" : "#ffffff"}
               >
                 {s.pct}%
               </text>

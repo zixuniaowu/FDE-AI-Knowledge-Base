@@ -24,7 +24,7 @@ const PAGES = [
   { path: "/matrix/", name: "matrix" },
   { path: "/references/market-demand/", name: "market-demand" },
   { path: "/references/oss-experiment/", name: "oss-experiment" },
-  { path: "/references/field-tips/", name: "field-tips" },
+  { path: "/references/prompt-tips/", name: "field-tips" },
 ];
 
 const errors = [];

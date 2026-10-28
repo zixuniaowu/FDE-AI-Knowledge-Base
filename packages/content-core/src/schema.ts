@@ -74,10 +74,20 @@ export const patternDocSchema = z.object({
   updated: dateSchema,
 });
 
+/** 学習パスの「部」。order の昇順で部 → 章を並べる */
+export const guidePartSchema = z.enum(["understand", "practice", "govern", "career"]);
+export const GUIDE_PARTS: { id: z.infer<typeof guidePartSchema>; label: string; desc: string }[] = [
+  { id: "understand", label: "第 1 部 理解する", desc: "FDE という役割と、日本で働く前提" },
+  { id: "practice", label: "第 2 部 実践する", desc: "発見から本番化までの 6 フェーズ" },
+  { id: "govern", label: "第 3 部 統制し、定着させる", desc: "セキュリティ・コスト・人と組織" },
+  { id: "career", label: "第 4 部 キャリアと採用", desc: "FDE になる・FDE を採用する" },
+];
+
 export const guideDocSchema = z.object({
   id: idSchema,
   type: z.literal("guide"),
   order: z.number().int().min(0),
+  part: guidePartSchema.default("practice"),
   title: z.string().min(1),
   summary: z.string().min(1),
   owners: ownersSchema,
@@ -114,6 +124,7 @@ export type DomainDoc = z.infer<typeof domainDocSchema>;
 export type UseCaseDoc = z.infer<typeof useCaseDocSchema>;
 export type PhaseDoc = z.infer<typeof phaseDocSchema>;
 export type PatternDoc = z.infer<typeof patternDocSchema>;
+export type GuidePart = z.infer<typeof guidePartSchema>;
 export type GuideDoc = z.infer<typeof guideDocSchema>;
 export type IntersectionDoc = z.infer<typeof intersectionDocSchema>;
 export type ReferenceDoc = z.infer<typeof referenceDocSchema>;

@@ -13,7 +13,7 @@ FDE のコンテンツを読むために必要な用語をまとめました。�
 ## 基本用語
 
 **FDE（Forward Deployed Engineer／前沿部署エンジニア）**
-顧客・事業部の現場に入り、AI を実際の業務に組み込み、成果指標が動く状態まで責任を持つエンジニア。企業の AI 導入で最も不足している役割。Palantir のモデルで知られ、OpenAI・Anthropic なども採用。この KB の主役。（[FDE とは](/guide/what-is-pde)）
+顧客・事業部の現場に入り、AI を実際の業務に組み込み、成果指標が動く状態まで責任を持つエンジニア。企業の AI 導入で最も不足している役割。Palantir のモデルで知られ、OpenAI・Anthropic なども採用。この KB の主役。（[FDE とは](/guide/what-is-fde)）
 
 **PDE（Product Design Engineer）**
 関連職種。AI スタートアップで「製品の課題を考え、インタラクションを設計し、プロダクションコードを自分で書ける人」。FDE が「既存業務への AI 導入」なら、PDE は「AI 製品そのものを作る」側。
@@ -25,10 +25,10 @@ FDE / PDE と近い文脈で使われる肩書き。Vercel の定義は「問題
 課題ヒアリング → 業務の要件化 → プロトタイプ → 実装 → 本番導入 → 現場定着。従来はコンサル・PM・エンジニア・CS に分かれていた流れを、一人で責任を持って回す。
 
 **プロンプト**
-AI に渡す指示・入力のこと。役割・入力・指示・制約の 4 部品で設計する（[STEP 3](/guide/step-3-build-the-loop)）。
+AI に渡す指示・入力のこと。役割・入力・指示・制約の 4 部品で設計する（[構築ループ](/guide/build-loop)）。
 
 **受け入れ基準（AC: Acceptance Criteria）**
-成果物を「OK」とする条件のリスト。検査可能な形で書く（[STEP 4](/guide/step-4-acceptance)）。
+成果物を「OK」とする条件のリスト。検査可能な形で書く（[要件化と成果指標](/guide/requirements-and-kpi)）。
 
 **AI コーディングツール**
 Claude Code、Cursor、Copilot など、AI でコードを生成・修正するツール。FDE 案件の必須スキルに頻出。

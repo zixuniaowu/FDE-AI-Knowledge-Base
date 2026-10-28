@@ -117,12 +117,12 @@ flowchart LR
 
 | ステップ | この KB の対応ページ |
 |---|---|
-| ① 土台 | [STEP 3: 作業ループ](/guide/step-3-build-the-loop) / [小技集](/references/prompt-tips) |
+| ① 土台 | [構築ループ](/guide/build-loop) / [小技集](/references/prompt-tips) |
 | ② 基本型 | [RAG](/patterns/rag) / [構造化出力](/patterns/structured-output) / [Few-shot](/patterns/few-shot) |
 | ③ 自動化 | [Agent](/patterns/agent) / [Prompt Chaining](/patterns/prompt-chaining) / [Human-in-the-loop](/patterns/human-in-the-loop) |
-| ④ 本番の壁 | [Evaluation](/patterns/evaluation) / [Confidential Inputs](/patterns/confidential-inputs) / [コスト見積](/references/cost-estimate) |
+| ④ 本番の壁 | [Evaluation](/patterns/evaluation) / [Confidential Inputs](/patterns/confidential-inputs) / [コスト見積](/guide/cost-and-roi) |
 | ⑤ 業界へ | [業務プロセスと AI の接点](/references/business-processes) / [領域](/domains)のユースケース |
-| 業務軸 | [STEP 1: 題材を選ぶ](/guide/step-1-pick-a-task) / [要件定義](/process/waterfall/requirements) |
+| 業務軸 | [発見](/guide/discovery) / [要件定義](/process/waterfall/requirements) |
 
 - AI 軸（①〜⑤）と業務軸は**並行**が原則。AI だけ触っていると「使えるが入る場所がない」人になり、業務だけだと「入る場所はあるが作れない」人になる
 - 次のスナップショットで必須スキルの頻度が変わったら、この図の順序と KB リンクを見直す
@@ -154,7 +154,7 @@ flowchart TB
 | 検証 | 形式・引用の機械チェック（[Evaluation](/patterns/evaluation)） | 「正しいこと」の定義（受け入れ基準） |
 | 関係 | 説明資料の下書き | 顧客・現場との合意形成と信頼 |
 
-- 境界の設計方法そのものは [Human-in-the-loop](/patterns/human-in-the-loop)、判断の線引きは [STEP 2](/guide/step-2-define-roles)、入力の安全側は [Confidential Inputs](/patterns/confidential-inputs) を参照
+- 境界の設計方法そのものは [Human-in-the-loop](/patterns/human-in-the-loop)、判断の線引きは [解決策の設計](/guide/solution-design)、入力の安全側は [Confidential Inputs](/patterns/confidential-inputs) を参照
 - **AI の境界は固定ではない**。ツールの精度が上がれば「検証」は AI 側へ寄せられる。ただし「選定・指標・責任」は案件文が示すかぎり、常に人間側に残る
 
 ## 6. 大手 IT ベンダーの動向
@@ -164,7 +164,7 @@ FDE の協働・競合相手となる大手 SIer・コンサルの生成 AI 推�
 
 ## 7. 実戦テクニックと実演記録
 
-実際の案件で効いた工夫は、[実戦テクニック](/references/field-tips)のページに逐次追記していく。理論（工程 × 人間と AI の分業）を実コードで検証した記録は、[実演記録 — OSS で新機能追加とバグ対応をやってみる](/references/oss-experiment)を参照。
+実際の案件で効いた工夫は、[実戦テクニック](/references/prompt-tips)のページに逐次追記していく。理論（工程 × 人間と AI の分業）を実コードで検証した記録は、[実演記録 — OSS で新機能追加とバグ対応をやってみる](/references/oss-experiment)を参照。
 
 ## 情報ソースと注意
 

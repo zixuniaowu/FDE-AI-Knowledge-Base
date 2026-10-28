@@ -5,7 +5,7 @@ title: 構造化出力
 summary: 自由文ではなく JSON 等の構造で出力させる。下流処理・検証・集計が可能になる
 owners: ["@zixuniaowu"]
 status: draft
-updated: 2026-09-12
+updated: 2026-10-28
 ---
 
 ## 概要
@@ -110,6 +110,29 @@ if (!parsed.success) {
 
 ❌ **不合格例 2**（構造は正しいが根拠が不在）: `{ "判定": "B", "根拠": "概ね正しい記述", "確信度": "high" }` — 根拠の実在照合で棄却する（[評価](./evaluation.md)）
 
+## 使うか・使わないか（判断表）
+
+| 状況 | 判断 | 代わりの選択肢 |
+|---|---|---|
+| 後続のシステムに登録・連携する | 使う | — |
+| 帳票・メールから決まった項目を抜く | 使う | — |
+| 自由な文章が成果物 | 使わない（形式だけ指定すれば十分） | [Few-shot](/patterns/few-shot) |
+| 項目が毎回変わる | スキーマを緩くするか分割 | [Prompt Chaining](/patterns/prompt-chaining) |
+
+## 導入の手順
+
+1. 業務システムの登録画面・CSV から、必要な項目と型・必須/任意を洗い出す
+2. JSON Schema（または各社の構造化出力・ツール定義の機能）で出力形式を定義する
+3. 「入力にない値は null」「推測しない」を制約に入れる
+4. アプリ側でスキーマ検証し、失敗時は 1〜2 回だけ再試行、それでも失敗なら人へ回す
+5. 項目ごとの一致率を評価セットで測り、誤りの多い項目から直す
+
+## 例示: 請求書 PDF から会計システムへの登録（架空のケース）
+
+> 手法の説明用の**架空の例**です。特定の企業の事例ではありません。
+
+請求書から取引先名・請求日・金額・税率・支払期日を JSON で抽出し、スキーマ検証後に会計システムの仕訳候補として表示。担当者が確認して確定する。評価では「支払期日が本文中の別の日付と混同される」誤りが多く、項目の説明文に「『お支払期限』の記載のみを使う」と追記して改善した
+
 ## 導入チェックリスト
 
 - [ ] スキーマを JSON Schema / Zod などコードで定義した
@@ -120,3 +143,8 @@ if (!parsed.success) {
 ## 関連リスク（出典）
 
 - 出力をそのまま下流システムに渡すと不適切な出力処理（Improper Output Handling）のリスクになる（出典: [OWASP Top 10 for LLM Applications](https://genai.owasp.org/llm-top-10/)）
+
+## 参考文献
+
+- [OpenAI「Structured Outputs」ドキュメント](https://platform.openai.com/docs/guides/structured-outputs)
+- [Anthropic「Tool use with Claude」ドキュメント](https://docs.anthropic.com/en/docs/build-with-claude/tool-use)

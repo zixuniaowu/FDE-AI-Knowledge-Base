@@ -1,18 +1,21 @@
 import { expect, test } from "@playwright/test";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { p } from "./helpers";
+import { REDIRECTS } from "../apps/web/lib/site";
 
 test.describe("ホームとグローバルナビ", () => {
   test("ホームにタイトルと全体マップが表示される", async ({ page }) => {
     await page.goto(p("/"));
-    await expect(page.locator(".hero-kicker")).toContainText("FORWARD DEPLOYED ENGINEER");
-    await expect(page.getByText(/課題ヒアリング/).first()).toBeVisible();
-    await expect(page.locator(".hero-stat").first()).toBeVisible();
+    await expect(page.locator(".hero .eyebrow")).toContainText("FORWARD DEPLOYED ENGINEER");
+    await expect(page.locator(".hero-kpis dd").first()).toBeVisible();
+    await expect(page.locator(".part-card")).toHaveCount(4);
   });
 
   test("全ページでヘッダーとフッターが表示される", async ({ page }) => {
     for (const path of ["/guide/", "/domains/", "/process/", "/patterns/", "/matrix/", "/vendors/", "/market/", "/search/"]) {
       await page.goto(p(path));
-      await expect(page.getByRole("link", { name: "FDE", exact: true })).toBeVisible();
+      await expect(page.getByRole("link", { name: "FDE Knowledge Base ホーム" })).toBeVisible();
       await expect(page.getByText("Code: MIT / Content: CC BY 4.0")).toBeVisible();
     }
   });
@@ -21,14 +24,27 @@ test.describe("ホームとグローバルナビ", () => {
 test.describe("リデザイン（IA・検索・モバイル）", () => {
   test("ホームに「目的から探す」カードが 6 枚ある", async ({ page }) => {
     await page.goto(p("/"));
-    await expect(page.getByText("何をしに来ましたか？")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "目的から探す" })).toBeVisible();
     expect(await page.locator("a.job-card").count()).toBe(6);
   });
 
-  test("ホームに今週の案件数サマリーがある", async ({ page }) => {
+  test("ホームのヒーロー数値は data/market-history.json の最新スナップショットと一致する", async ({ page }) => {
+    const history = JSON.parse(readFileSync(join(__dirname, "../data/market-history.json"), "utf8"));
+    const latest = [...history.snapshots].sort((a: { date: string }, b: { date: string }) => a.date.localeCompare(b.date)).pop();
     await page.goto(p("/"));
-    await expect(page.getByText("FDE の市場（週次で追跡）")).toBeVisible();
-    await expect(page.getByRole("link", { name: "市場・動向" }).first()).toBeVisible();
+    await expect(page.locator(".hero-kpis dd").first()).toContainText(String(latest.total));
+    await expect(page.locator(".hero-kpis")).toContainText(latest.date);
+    await expect(page.getByRole("link", { name: "収集方法と推移" })).toBeVisible();
+  });
+
+  test("ダークモードを切り替えると data-theme が変わり、再読込後も保持される", async ({ page }) => {
+    await page.emulateMedia({ colorScheme: "light" });
+    await page.goto(p("/"));
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+    await page.locator(".theme-toggle").click();
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+    await page.reload();
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   });
 
   test("検索で RAG パターンが見つかる", async ({ page }) => {
@@ -53,32 +69,43 @@ test.describe("リデザイン（IA・検索・モバイル）", () => {
 });
 
 test.describe("ガイド", () => {
-  test("ガイド一覧に 7 ステップ以上ある", async ({ page }) => {
+  test("学習パスは 4 部構成で 14 章ある", async ({ page }) => {
     await page.goto(p("/guide/"));
-    const cards = page.locator("a.card");
-    expect(await cards.count()).toBeGreaterThanOrEqual(7);
+    await expect(page.locator(".path-part")).toHaveCount(4);
+    expect(await page.locator("a.path-chapter").count()).toBeGreaterThanOrEqual(14);
+    await expect(page.getByRole("heading", { name: "第 4 部 キャリアと採用" })).toBeVisible();
   });
 
-  test("STEP 1 に目次と本文、次の STEP へのリンクがある", async ({ page }) => {
-    await page.goto(p("/guide/step-1-pick-a-task/"));
-    await expect(page.getByRole("heading", { name: /STEP 1/ })).toBeVisible();
+  test("章ページにパンくず・目次・プログレスバー・前後リンク・関連がある", async ({ page }) => {
+    await page.goto(p("/guide/discovery/"));
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    await expect(page.getByRole("navigation", { name: "パンくずリスト" })).toContainText("学習パス");
     await expect(page.getByRole("navigation", { name: "目次" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "やることリスト" })).toBeVisible();
-    await expect(page.getByRole("link", { name: /STEP 2/ }).first()).toBeVisible();
+    await expect(page.locator(".reading-progress")).toHaveCount(1);
+    await expect(page.locator(".pager-prev")).toBeVisible();
+    await expect(page.locator(".pager-next")).toContainText("要件");
+    await expect(page.locator(".related .card").first()).toBeVisible();
   });
 
-  test("ホームにヒーロー統計とナレッジ数がある", async ({ page }) => {
+  test("スマホ幅では目次が折りたたみになり、横スクロールが発生しない", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(p("/guide/evaluation/"));
+    await expect(page.locator(".toc-inline summary")).toBeVisible();
+    await expect(page.locator(".toc-side")).toBeHidden();
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+    expect(overflow).toBeLessThanOrEqual(1);
+  });
+
+  test("ホームにヒーローと学習パスの入口がある", async ({ page }) => {
     await page.goto(p("/"));
     await expect(page.getByRole("heading", { level: 1 })).toContainText("現場に入り");
-    await expect(page.locator(".hero-kicker")).toContainText("FORWARD DEPLOYED ENGINEER");
-    await expect(page.getByText(/ナレッジ公開中/)).toBeVisible();
-    await expect(page.getByText(/\d+ ページ/).first()).toBeVisible();
+    await page.getByRole("link", { name: "学習パスを始める" }).click();
+    await expect(page).toHaveURL(/\/guide\/?$/);
   });
 
 
   test("市場・動向ページに統計グラフと出所リンクがある", async ({ page }) => {
     await page.goto(p("/market/"));
-    await expect(page.getByText("FDE の市場（週次で追跡）")).toBeVisible();
     expect(await page.locator(".chart-slice").count()).toBeGreaterThanOrEqual(5);
     await expect(
       page.getByRole("link", { name: "フリーランススタート" }).first()
@@ -129,14 +156,16 @@ test.describe("ガイド", () => {
     expect(Math.abs(after!.y - before!.y)).toBeGreaterThan(20);
   });
 
-  test("旧スラッグ what-is-pde は what-is-fde へリダイレクトされる", async ({ page }) => {
-    await page.goto(p("/guide/what-is-pde/"));
-    await expect(page).toHaveURL(/\/guide\/what-is-fde\/$/, { timeout: 15000 });
-  });
+  for (const [from, to] of Object.entries(REDIRECTS)) {
+    test(`統合・削除したページ ${from} は ${to} へリダイレクトされる`, async ({ page }) => {
+      await page.goto(p(`${from}/`));
+      await expect(page).toHaveURL(new RegExp(`${to.replace(/\//g, "\\/")}\\/?$`), { timeout: 15000 });
+    });
+  }
 
   test("FDE とはページに概念図（mermaid SVG）が描画される", async ({ page }) => {
     await page.goto(p("/guide/what-is-fde/"));
-    await expect(page.locator(".mermaid-figure svg")).toHaveCount(2, { timeout: 15000 });
+    await expect.poll(async () => page.locator(".mermaid-figure svg").count(), { timeout: 15000 }).toBeGreaterThanOrEqual(1);
     await expect(page.locator(".mermaid-figure svg").first()).toBeVisible();
   });
 });
@@ -188,15 +217,17 @@ test.describe("工程と交点", () => {
 
   test("交点ページ（ノートあり）は交点ノートを表示する", async ({ page }) => {
     await page.goto(p("/matrix/healthcare/agile/review/"));
-    await expect(page.getByText("交点ノート")).toBeVisible();
-    await expect(page.getByText("多職種カンファレンス")).toBeVisible();
-    await expect(page.getByText("FDEの仕事").first()).toBeVisible();
-    await expect(page.getByText("AIツールの使いどころ").first()).toBeVisible();
+    await expect(page.getByText("交点プレイブック")).toBeVisible();
+    await expect(page.getByText("多職種カンファレンス").first()).toBeVisible();
+    await expect(page.getByRole("heading", { name: "この工程で FDE がやること" })).toBeVisible();
+    await expect(page.getByText("工程共通: AI ツールの使いどころ")).toBeVisible();
   });
 
-  test("交点ページ（ノートなし）は執筆の導線を表示する", async ({ page }) => {
+  test("全交点が埋まっている（新規生成セルにも段取りと参考文献がある）", async ({ page }) => {
     await page.goto(p("/matrix/education/waterfall/deployment/"));
-    await expect(page.getByText("この交点専用の知見はまだありません")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "この工程で FDE がやること" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "参考文献（一次情報）" })).toBeVisible();
+    await expect(page.locator(".pager-link").first()).toBeVisible();
   });
 
   test("マトリクスに 10 領域 × 工程の表がある", async ({ page }) => {
@@ -209,7 +240,8 @@ test.describe("工程と交点", () => {
 test.describe("パターン", () => {
   test("RAG パターンに適用ユースケースの逆リンクがある", async ({ page }) => {
     await page.goto(p("/patterns/rag/"));
-    await expect(page.getByRole("heading", { name: "このパターンを使っているユースケース" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "このパターンを使うユースケース・章" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "使うか・使わないか（判断表）" })).toBeVisible();
     await expect(page.getByRole("link", { name: /採点支援ツール（教育）/ })).toBeVisible();
   });
 });
@@ -255,8 +287,26 @@ test.describe("リファレンス", () => {
     await page.goto(p("/references/business-processes/"));
     await expect(page.getByRole("heading", { name: "業務プロセスと AI の接点" })).toBeVisible();
     for (const term of ["O2C", "購買（P2P", "S/4HANA", "freee"]) {
-      await expect(page.getByText(term).first()).toBeVisible();
+      await expect(page.locator(".prose").getByText(term).first()).toBeVisible();
     }
+  });
+});
+
+test.describe("v2 IA", () => {
+  test("テンプレート・事例の一覧がグループ別に表示される", async ({ page }) => {
+    await page.goto(p("/references/"));
+    await expect(page.getByRole("heading", { name: "テンプレート・道具箱" })).toBeVisible();
+    await expect(page.getByRole("link", { name: /公開事例集/ })).toBeVisible();
+  });
+
+  test("公開事例集の各事例に出典リンクがある", async ({ page }) => {
+    await page.goto(p("/references/case-studies/"));
+    expect(await page.locator('.prose a[href^="http"]').count()).toBeGreaterThanOrEqual(6);
+  });
+
+  test("領域ページに工程別プレイブックへのリンクが 11 本ある", async ({ page }) => {
+    await page.goto(p("/domains/legal/"));
+    expect(await page.locator('.phase-strip a[href*="/matrix/legal/"]').count()).toBe(11);
   });
 });
 
