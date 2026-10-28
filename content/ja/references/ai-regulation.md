@@ -50,13 +50,13 @@ flowchart TD
 1. **入力の管理**: 機密分類ルールと契約済み環境（[Confidential Inputs](/patterns/confidential-inputs)）
 2. **出力の責任**: 人間の確認工程（[Human-in-the-loop](/patterns/human-in-the-loop)）と引用の実在照合（[Evaluation](/patterns/evaluation)）
 3. **ガバナンス**: AI 事業者ガイドライン準拠の社内ルール + 承認記録
-4. **継続性**: モデル更新時の再評価（[LLMOps](/references/llmops)）
+4. **継続性**: モデル更新時の再評価（[LLMOps](/guide/poc-to-production)）
 
 ## 関連
 
 - [Confidential Inputs](/patterns/confidential-inputs) / [Human-in-the-loop](/patterns/human-in-the-loop)
 - [法務ドメイン](/domains/legal) — 契約審査・法務業務の AI 活用ユースケース
-- [POC 合意書テンプレート](/references/poc-agreement) — 合規要件を合意に織り込む型
+- [POC 合意書テンプレート](/references/deliverables) — 合規要件を合意に織り込む型
 
 ## 一次情報（必ず最新版を確認）
 

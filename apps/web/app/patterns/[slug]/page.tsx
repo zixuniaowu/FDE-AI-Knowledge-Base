@@ -1,61 +1,55 @@
-import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getPattern, listDomains, listPatterns, listUseCases } from "@fde/content-core";
-import { Prose } from "@/components/Prose";
-import { Toc } from "@/components/Toc";
-import { Meta, StatusBadge } from "@/components/Badges";
+import { listDomains, listGuides, listPatterns, listUseCases } from "@fde/content-core";
+import { ArticleLayout } from "@/components/ArticleLayout";
 
 export function generateStaticParams() {
   return listPatterns().map((p) => ({ slug: p.data.id }));
 }
 
-export default async function PatternPage({ params }: { params: { slug: string } }) {
-  const { slug } = params;
-  const known = listPatterns().some((p) => p.data.id === slug);
-  if (!known) notFound();
+export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
+  const p = listPatterns().find((x) => x.data.id === params.slug);
+  return p ? { title: p.data.title, description: p.data.summary } : {};
+}
 
-  const doc = getPattern(slug);
+export default function PatternPage({ params }: { params: { slug: string } }) {
+  const { slug } = params;
+  const patterns = listPatterns();
+  const index = patterns.findIndex((p) => p.data.id === slug);
+  if (index === -1) notFound();
+  const doc = patterns[index];
+
   const applying = listDomains().flatMap((d) =>
     listUseCases(d.id)
       .filter((uc) => uc.data.aiPatterns.includes(slug))
-      .map((uc) => ({ domain: d, uc }))
+      .map((uc) => ({
+        href: `/domains/${d.id}/${uc.data.id}`,
+        title: uc.data.title,
+        desc: uc.data.summary,
+        kicker: `${d.icon ?? ""} ${d.name}`,
+      }))
   );
+  const guides = listGuides()
+    .filter((g) => g.content.includes(`/patterns/${slug}`))
+    .map((g) => ({ href: `/guide/${g.data.id}`, title: g.data.title, desc: g.data.summary, kicker: "学習パス" }));
+  const nav = (i: number) =>
+    i >= 0 && i < patterns.length ? { href: `/patterns/${patterns[i].data.id}`, title: patterns[i].data.title } : null;
 
   return (
-    <article>
-      <p style={{ margin: 0 }}>
-        <Link href="/patterns">← パターン一覧</Link>
-      </p>
-      <h1>✨ {doc.data.title}</h1>
-      <p className="lead">{doc.data.summary}</p>
-      <p>
-        <StatusBadge status={doc.data.status} />
-      </p>
-      <Toc markdown={doc.content} />
-      <Prose markdown={doc.content} linkBase="/patterns" />
-      <Meta updated={doc.data.updated} owners={doc.data.owners} />
-
-      <h2>このパターンを使っているユースケース</h2>
-      <div className="grid grid-2">
-        {applying.map(({ domain, uc }) => (
-          <Link
-            key={`${domain.id}/${uc.data.id}`}
-            href={`/domains/${domain.id}/${uc.data.id}`}
-            className="card"
-          >
-            <h3>
-              {domain.icon ?? "📦"} {domain.name} / {uc.data.title}
-            </h3>
-            <p>{uc.data.summary}</p>
-          </Link>
-        ))}
-        {applying.length === 0 && (
-          <p style={{ color: "var(--text-faint)" }}>
-            まだ適用ユースケースがありません。あなたの領域で試して、最初の 1
-            件を書いてみませんか？
-          </p>
-        )}
-      </div>
-    </article>
+    <ArticleLayout
+      crumbs={[{ href: "/patterns", label: "パターン" }, { label: doc.data.title }]}
+      kicker={`AI 実装パターン ${index + 1} / ${patterns.length}`}
+      title={doc.data.title}
+      lead={doc.data.summary}
+      status={doc.data.status}
+      updated={doc.data.updated}
+      owners={doc.data.owners}
+      markdown={doc.content}
+      linkBase="/patterns"
+      prev={nav(index - 1)}
+      next={nav(index + 1)}
+      related={[...applying, ...guides]}
+      relatedTitle={applying.length ? "このパターンを使うユースケース・章" : "関連する章"}
+    />
   );
 }

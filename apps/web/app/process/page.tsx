@@ -42,7 +42,7 @@ export default function ProcessPage() {
                     <td>Biz 要件（業務要件）</td>
                     <td>UAT（受入テスト）</td>
                     <td>
-                      業務の成果指標が動いたかを判定。<Link href="/patterns/human-in-the-loop">Human-in-the-loop</Link> の承認型チェックポイント / 受け入れ基準は <Link href="/guide/step-4-acceptance">STEP 4</Link> の型で先に書く
+                      業務の成果指標が動いたかを判定。<Link href="/patterns/human-in-the-loop">Human-in-the-loop</Link> の承認型チェックポイント / 受け入れ基準は <Link href="/guide/requirements-and-kpi">STEP 4</Link> の型で先に書く
                     </td>
                   </tr>
                   <tr>

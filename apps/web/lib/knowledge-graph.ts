@@ -21,7 +21,7 @@ export const NODES: KgNode[] = [
   { id: "fde", label: "FDE", x: 550, y: 320, r: 54, cat: "center" },
 
   { id: "req", label: "業務の要件化", x: 230, y: 130, r: 44, cat: "human", freq: "ほぼ全案件", href: "/process/waterfall/requirements" },
-  { id: "kpi", label: "成果指標", x: 80, y: 80, r: 16, cat: "human", href: "/guide/step-4-acceptance" },
+  { id: "kpi", label: "成果指標", x: 80, y: 80, r: 16, cat: "human", href: "/guide/requirements-and-kpi" },
   { id: "bp", label: "業務プロセス", x: 70, y: 200, r: 16, cat: "human", href: "/references/business-processes" },
 
   { id: "llm", label: "LLM アプリ開発", x: 770, y: 120, r: 38, cat: "ai", freq: "頻出" },
@@ -45,7 +45,7 @@ export const NODES: KgNode[] = [
   { id: "cost", label: "コスト", x: 745, y: 622, r: 13, cat: "base" },
 
   { id: "ship", label: "リリース・定着", x: 330, y: 540, r: 38, cat: "human", freq: "頻出", href: "/process/waterfall/deployment" },
-  { id: "cs", label: "顧客折衝・説明力", x: 120, y: 350, r: 44, cat: "human", freq: "ほぼ全案件", href: "/guide/step-5-team" },
+  { id: "cs", label: "顧客折衝・説明力", x: 120, y: 350, r: 44, cat: "human", freq: "ほぼ全案件", href: "/guide/stakeholders" },
   { id: "agree", label: "合意形成", x: 60, y: 475, r: 15, cat: "human" },
 ];
 

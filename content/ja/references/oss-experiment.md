@@ -167,4 +167,4 @@ flowchart LR
 
 数値で見る変化: テスト 467 → 485（緑）。途中状態は「赤 4（再現）→ パッチ → 赤 145（契約）→ 方針決定 → 緑」。
 
-実戦で効いた小技は[実戦テクニック](/references/field-tips)に追記していく。検証パターンの詳細は [Evaluation](/patterns/evaluation)、レビュー前の自己点検は [Self-check](/patterns/self-check) を参照。
+実戦で効いた小技は[実戦テクニック](/references/prompt-tips)に追記していく。検証パターンの詳細は [Evaluation](/patterns/evaluation)、レビュー前の自己点検は [Self-check](/patterns/self-check) を参照。

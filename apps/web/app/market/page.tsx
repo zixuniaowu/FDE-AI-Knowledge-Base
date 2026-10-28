@@ -26,7 +26,7 @@ export default function MarketPage() {
         <Link href="/references/market-demand" className="card"><strong>需要分析</strong><span>スキル頻度・案件の傾向</span></Link>
         <Link href="/vendors" className="card"><strong>ベンダー動向</strong><span>大手 IT 8 社の AI 推進（出典付き）</span></Link>
         <Link href="/references/ai-regulation" className="card"><strong>AI 法規マップ</strong><span>ガイドライン・著作権・個人情報</span></Link>
-        <Link href="/references/hiring-fde" className="card"><strong>採用ガイド</strong><span>FDE を採用する企業向け</span></Link>
+        <Link href="/guide/hiring" className="card"><strong>採用ガイド</strong><span>FDE を採用する企業向け</span></Link>
       </div>
       <section>
         <p className="section-label">FDE の市場（週次で追跡）</p>

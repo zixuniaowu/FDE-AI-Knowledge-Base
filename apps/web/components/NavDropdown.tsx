@@ -21,13 +21,13 @@ const ITEMS = [
     desc: "そのまま使える依頼の型 20+",
   },
   {
-    href: "/references/hiring-fde",
+    href: "/guide/hiring",
     label: "企業の採用ガイド",
     desc: "FDE を採用する企業のための実務",
   },
   {
-    href: "/references/llmops",
-    label: "LLMOps",
+    href: "/guide/poc-to-production",
+    label: "PoC から本番化・LLMOps",
     desc: "生成 AI アプリの運用工程",
   },
   {
@@ -41,7 +41,7 @@ const ITEMS = [
     desc: "OSS で検証した人 × AI の分業",
   },
   {
-    href: "/references/field-tips",
+    href: "/references/prompt-tips",
     label: "実戦テクニック",
     desc: "案件で効いた工夫の記録帳",
   },

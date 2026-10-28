@@ -5,7 +5,7 @@ title: Agent（エージェント）
 summary: 目標を渡すと AI 自らが計画・ツール実行・反復を行うパターン。管理コストとセット
 owners: ["@zixuniaowu"]
 status: reviewed
-updated: 2026-09-12
+updated: 2026-10-28
 ---
 
 ## 概要
@@ -78,6 +78,30 @@ stateDiagram-v2
 
 ❌ **暴走**: 同一ツールを同一引数で 3 回以上繰り返す / tokens が急増 / 読み取り専用のはずが書き込み系ツールを呼ぶ。→ 上限（10 ステップ / $2）で止まり、ログを人間が確認してから再開する
 
+## 使うか・使わないか（判断表）
+
+| 状況 | 判断 | 代わりの選択肢 |
+|---|---|---|
+| 手順が固定で分岐が少ない | 使わない | ワークフロー（[Prompt Chaining](/patterns/prompt-chaining)） |
+| 必要な手順が入力によって大きく変わる | 使う | — |
+| 書き込み・送信・削除を伴う | 使うなら承認必須 | [Human-in-the-loop](/patterns/human-in-the-loop) |
+| 1 回の誤りの損害が大きい | 使わない／読み取り専用に限定 | — |
+
+## 導入の手順
+
+1. まずワークフロー（固定手順）で作れないか検討する
+2. ツールを読み取り系と書き込み系に分け、書き込み系は承認制にする
+3. ステップ数・コスト・時間の上限を設定する
+4. 全ステップのログ（思考・ツール呼び出し・結果）を保存する
+5. 評価セットで成功率と暴走（上限到達）率を測る
+6. 限定した利用者・業務から始め、ログを週次でレビューする
+
+## 例示: 社内 IT ヘルプデスクの一次対応（架空のケース）
+
+> 手法の説明用の**架空の例**です。特定の企業の事例ではありません。
+
+問い合わせ内容に応じて、FAQ 検索・アカウント状態の照会（読み取り）・チケット起票（書き込み・承認制）を使い分ける。上限は 8 ステップ。ログのレビューで「同じ FAQ 検索を繰り返す」暴走が見つかり、直前と同じ検索を禁止する制約を加えた
+
 ## 導入チェックリスト
 
 - [ ] ツールごとに権限（読み取り / 書き込み）を分け、書き込み系は承認を挟む
@@ -89,3 +113,8 @@ stateDiagram-v2
 ## 関連リスク（出典）
 
 - 過剰な権限・自律性（Excessive Agency）とプロンプトインジェクションは LLM アプリの代表的リスクとして整理されている（出典: [OWASP Top 10 for LLM Applications](https://genai.owasp.org/llm-top-10/)）
+
+## 参考文献
+
+- [Anthropic「Building effective agents」（2024）](https://www.anthropic.com/engineering/building-effective-agents)
+- [OWASP「Top 10 for LLM Applications 2025」（Excessive Agency）](https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/)

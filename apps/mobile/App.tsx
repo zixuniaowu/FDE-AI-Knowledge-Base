@@ -28,6 +28,13 @@ type Domain = {
   useCases: UseCase[];
 };
 
+const PART_LABEL: Record<string, string> = {
+  understand: "理解",
+  practice: "実践",
+  govern: "統制",
+  career: "キャリア",
+};
+
 type Phase = {
   id: string;
   method: string;
@@ -40,6 +47,7 @@ type Phase = {
 type Guide = {
   id: string;
   order: number;
+  part?: "understand" | "practice" | "govern" | "career";
   title: string;
   summary: string;
   status: string;
@@ -86,7 +94,7 @@ export default function App() {
           {screen.name === "usecase" && screen.item.title}
           {screen.name === "process" && "工程"}
           {screen.name === "phase" && `${screen.item.method} · ${screen.item.title}`}
-          {screen.name === "guide" && "FDE の始め方"}
+          {screen.name === "guide" && "FDE 学習パス"}
           {screen.name === "guideStep" && screen.item.title}
         </Text>
       </View>
@@ -101,7 +109,7 @@ export default function App() {
           keyExtractor={(g) => g.id}
           renderItem={({ item }) => (
             <Card
-              title={item.order === 0 ? `📖 ${item.title}` : `STEP ${item.order} — ${item.title}`}
+              title={`${PART_LABEL[item.part ?? "practice"] ?? ""} ${item.order}. ${item.title}`}
               subtitle={item.summary}
               badge={statusLabel[item.status] ?? item.status}
               onPress={() => push({ name: "guideStep", item })}
@@ -170,7 +178,7 @@ export default function App() {
       {screen.name === "home" && (
         <View style={styles.footer}>
           <TouchableOpacity onPress={() => push({ name: "guide" })}>
-            <Text style={styles.footerLink}>🧭 始め方</Text>
+            <Text style={styles.footerLink}>🧭 学習パス</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => push({ name: "process" })}>
             <Text style={styles.footerLink}>🔁 工程一覧を見る</Text>

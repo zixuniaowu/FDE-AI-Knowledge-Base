@@ -2,7 +2,8 @@ import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import { NavDropdown } from "@/components/NavDropdown";
 import { PwaRegister } from "@/components/PwaRegister";
-import { NAV } from "@/lib/site";
+import { ThemeToggle, THEME_INIT_SCRIPT } from "@/components/ThemeToggle";
+import { NAV, NAV_MORE } from "@/lib/site";
 import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
@@ -37,7 +38,10 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0f172a",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fbfaf7" },
+    { media: "(prefers-color-scheme: dark)", color: "#0e1116" },
+  ],
   width: "device-width",
   initialScale: 1,
 };
@@ -45,7 +49,10 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ja">
+    <html lang="ja" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+      </head>
       <body>
         <PwaRegister />
         <a href="#main" className="skip-link">
@@ -53,8 +60,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </a>
         <header className="site-header">
           <div className="container">
-            <Link href="/" className="brand">
-              FDE
+            <Link href="/" className="brand" aria-label="FDE Knowledge Base ホーム">
+              <span className="brand-mark">FDE</span>
+              <span className="brand-sub">Knowledge Base</span>
             </Link>
             <nav className="nav-links" aria-label="メイン">
               {NAV.map((n) => (
@@ -76,6 +84,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               >
                 GitHub
               </a>
+              <ThemeToggle />
               <details className="nav-mobile">
                 <summary aria-label="メニュー">☰</summary>
                 <div className="nav-mobile-panel">
@@ -84,10 +93,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                       {n.label}
                     </Link>
                   ))}
-                  <Link href="/matrix">マトリクス</Link>
-                  <Link href="/process">工程</Link>
-                  <Link href="/vendors">ベンダー動向</Link>
-                  <Link href="/search">検索</Link>
+                  {NAV_MORE.map((n) => (
+                    <Link key={n.href} href={n.href}>
+                      {n.label}
+                    </Link>
+                  ))}
                 </div>
               </details>
             </div>
@@ -98,6 +108,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </main>
         <footer className="site-footer">
           <div className="container">
+            <nav className="footer-nav" aria-label="フッター">
+              {[...NAV, ...NAV_MORE].map((n) => (
+                <Link key={n.href} href={n.href}>
+                  {n.label}
+                </Link>
+              ))}
+            </nav>
+            <p className="footer-note">
+              数値・企業動向・引用はすべて出典リンクつき。例示は「架空のケース」と明記しています。
+            </p>
             FDE — Forward Deployed Engineer Knowledge Base · Code: MIT / Content: CC BY 4.0 ·
             <Link href="https://github.com/zixuniaowu/FDE-AI-Knowledge-Base/blob/main/CONTRIBUTING.md">
               貢献する

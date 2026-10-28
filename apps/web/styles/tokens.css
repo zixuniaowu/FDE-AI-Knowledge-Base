@@ -1,0 +1,110 @@
+/* ═══ FDE KB デザインシステム v2 — トークン ═══
+ * 方針: 和文の可読性を最優先（本文 17px / 行間 1.9 / 字間 0.02em / 1 行 40 字前後）。
+ * 色は「墨・和紙・藍」を基調に、AI = 紫、人 = 青緑 の意味色を維持。
+ * ダークモード: [data-theme="dark"]（手動切替）> prefers-color-scheme（初期値）。
+ */
+:root {
+  /* typography */
+  --font-sans: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic UI", "Meiryo",
+    system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", "Menlo", "Consolas", monospace;
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1.0625rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: 1.5rem;
+  --fs-2xl: clamp(1.6rem, 1.2rem + 1.6vw, 2.25rem);
+  --fs-hero: clamp(2rem, 1.2rem + 3.6vw, 3.6rem);
+  --lh-body: 1.9;
+  --lh-tight: 1.4;
+  --tracking: 0.02em;
+  --measure: 44em;
+
+  /* space (4px grid) */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 72px;
+
+  --radius: 10px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 2px rgb(20 20 30 / 0.06);
+  --shadow-md: 0 6px 24px rgb(20 20 30 / 0.08);
+
+  /* color — light（和紙と墨） */
+  --bg: #fbfaf7;
+  --bg-sunken: #f3f1ec;
+  --surface: #ffffff;
+  --border: #e4e0d8;
+  --border-strong: #cfc9bd;
+  --text: #1b1d22;
+  --text-sub: #4a4f5a;
+  --text-faint: #8a8f99;
+  --accent: #1f4fbf; /* 藍 */
+  --accent-strong: #163a8f;
+  --accent-soft: #e6ecfa;
+  --ai: #6d3fd1;
+  --ai-soft: #efe8fd;
+  --human: #0b7a86;
+  --human-soft: #dff3f4;
+  --warn: #b45309;
+  --warn-soft: #fdf1e2;
+  --ok: #15803d;
+  --hero-bg: #12151c;
+  --hero-text: #f4f2ec;
+  --hero-sub: #b6b9c2;
+  --code-bg: #f3f1ec;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1116;
+    --bg-sunken: #12161d;
+    --surface: #151a22;
+    --border: #262d39;
+    --border-strong: #364051;
+    --text: #e8e6e1;
+    --text-sub: #a9aeb8;
+    --text-faint: #6f7684;
+    --accent: #7aa2ff;
+    --accent-strong: #a6c1ff;
+    --accent-soft: #1a2640;
+    --ai: #b39bff;
+    --ai-soft: #251d3d;
+    --human: #4fd1dc;
+    --human-soft: #12343a;
+    --warn: #f0a24b;
+    --warn-soft: #33240f;
+    --hero-bg: #0a0c10;
+    --code-bg: #10141a;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0e1116;
+  --bg-sunken: #12161d;
+  --surface: #151a22;
+  --border: #262d39;
+  --border-strong: #364051;
+  --text: #e8e6e1;
+  --text-sub: #a9aeb8;
+  --text-faint: #6f7684;
+  --accent: #7aa2ff;
+  --accent-strong: #a6c1ff;
+  --accent-soft: #1a2640;
+  --ai: #b39bff;
+  --ai-soft: #251d3d;
+  --human: #4fd1dc;
+  --human-soft: #12343a;
+  --warn: #f0a24b;
+  --warn-soft: #33240f;
+  --hero-bg: #0a0c10;
+  --code-bg: #10141a;
+  color-scheme: dark;
+}

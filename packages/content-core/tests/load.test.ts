@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
+import { GUIDE_PARTS } from "../src/schema";
 import {
+  getDomain,
   getGuide,
   getIntersection,
   getPhase,
@@ -11,6 +13,7 @@ import {
   listMethods,
   listPatterns,
   listPhases,
+  listReferences,
   listUseCases,
   resolveContentRoot,
 } from "../src/load";
@@ -82,15 +85,17 @@ describe("listGuides", () => {
 describe("listIntersections", () => {
   it("returns intersection notes with valid keys", () => {
     const notes = listIntersections();
-    expect(notes.length).toBeGreaterThanOrEqual(15);
+    // v2: 領域 × 工程の全セル（10 × 11）が埋まっている
+    expect(notes.length).toBe(listDomains().length * listPhases().length);
     for (const n of notes) {
       expect(n.data.id).toBe(intersectionKey(n.data.domain, n.data.method, n.data.phase));
-      expect(n.content).toContain("## この交点の要点");
+      expect(n.content).toContain("## この工程で FDE がやること");
+      expect(n.content).toContain("## 参考文献（一次情報）");
     }
   });
 
   it("getIntersection returns null for missing notes", () => {
-    expect(getIntersection("education", "agile", "retrospective")).toBeNull();
+    expect(getIntersection("no-such-domain", "agile", "retrospective")).toBeNull();
   });
 
   it("getIntersection returns the note for a written cell", () => {
@@ -135,8 +140,47 @@ describe("referential integrity of seed content", () => {
     }
   });
 
-  it("guide navigation references resolve", () => {
-    const guide = getGuide("step-6-contribute");
-    expect(guide.content).toContain("STEP");
+  it("guide chapters form a contiguous learning path grouped by part", () => {
+    const guides = listGuides();
+    expect(guides.map((g) => g.data.order)).toEqual(guides.map((_, i) => i));
+    const partOrder = GUIDE_PARTS.map((p) => p.id);
+    const seen = guides.map((g) => partOrder.indexOf(g.data.part));
+    expect(seen.every((v) => v >= 0)).toBe(true);
+    expect([...seen].sort((a, b) => a - b)).toEqual(seen);
+    expect(getGuide("what-is-fde").data.part).toBe("understand");
+  });
+
+  it("no legacy STEP numbering remains in content", () => {
+    const docs = [...listGuides(), ...listPatterns(), ...listReferences()];
+    for (const d of docs) expect(d.content, d.file).not.toMatch(/STEP ?[1-6]/);
+  });
+
+  it("every absolute internal link in content resolves to a route", () => {
+    const routes = new Set<string>([
+      "/", "/guide", "/patterns", "/domains", "/references", "/market", "/vendors", "/matrix", "/process", "/search",
+    ]);
+    listGuides().forEach((g) => routes.add(`/guide/${g.data.id}`));
+    listPatterns().forEach((p) => routes.add(`/patterns/${p.data.id}`));
+    listReferences().forEach((r) => routes.add(`/references/${r.data.id}`));
+    for (const d of listDomains()) {
+      routes.add(`/domains/${d.id}`);
+      listUseCases(d.id).forEach((uc) => routes.add(`/domains/${d.id}/${uc.data.id}`));
+      for (const ph of listPhases()) routes.add(`/matrix/${d.id}/${ph.data.method}/${ph.data.id}`);
+    }
+    listPhases().forEach((ph) => routes.add(`/process/${ph.data.method}/${ph.data.id}`));
+    listMethods().forEach((m) => routes.add(`/process/${m}`));
+
+    const docs = [
+      ...listGuides(), ...listPatterns(), ...listReferences(), ...listIntersections(), ...listPhases(),
+      ...listDomains().flatMap((d) => [getDomain(d.id), ...listUseCases(d.id)]),
+    ];
+    const broken: string[] = [];
+    for (const doc of docs) {
+      for (const m of doc.content.matchAll(/\]\((\/[^)\s]*)\)/g)) {
+        const path = m[1].replace(/#.*$/, "").replace(/\.md$/, "").replace(/\/$/, "") || "/";
+        if (!routes.has(path)) broken.push(`${doc.file}: ${m[1]}`);
+      }
+    }
+    expect(broken).toEqual([]);
   });
 });

@@ -49,7 +49,7 @@ flowchart LR
 | 項目 | 内容 |
 |---|---|
 | よくある痛み | 在庫差異の原因が分からない / 需要変動への発注 / ピッキングミス |
-| AI の入り方 | 需要予測と発注量提案 / 棚卸差異の原因分類 / 異常在庫の検知（[物流の異常整理](/domains/logistics/use-cases/delivery-anomaly)と接続） |
+| AI の入り方 | 需要予測と発注量提案 / 棚卸差異の原因分類 / 異常在庫の検知（[物流の異常整理](/domains/logistics/delivery-anomaly)と接続） |
 | 関連システム | WMS、在庫管理、S/4HANA MM |
 | 成果指標の例 | 棚卸差異率、欠品日数 |
 
@@ -60,7 +60,7 @@ flowchart LR
 | 項目 | 内容 |
 |---|---|
 | よくある痛み | 手配漏れ・納期遅延 / 不具合報告が自由記述 / 熟練技能の継承 |
-| AI の入り方 | 生産計画のたたき台 / 不具合報告の構造化と傾向分析（[製造の不具合整理](/domains/manufacturing/use-cases/defect-report)）/ 作業手順書の生成（[手順書支援](/domains/manufacturing/use-cases/work-instruction)） |
+| AI の入り方 | 生産計画のたたき台 / 不具合報告の構造化と傾向分析（[製造の不具合整理](/domains/manufacturing/defect-report)）/ 作業手順書の生成（[手順書支援](/domains/manufacturing/work-instruction)） |
 | 関連システム | S/4HANA PP、MES、生産管理システム |
 | 成果指標の例 | 計画達成率、不具合の再発件数 |
 
@@ -71,7 +71,7 @@ flowchart LR
 | 項目 | 内容 |
 |---|---|
 | よくある痛み | 伝票入力 / 証憑と記帳の突合 / 月次資料の作成時間 |
-| AI の入り方 | 請求書の AI 処理（freee・弥生が提供する機能の補完）/ 突合の一次分析 / [月次レポート](/domains/finance/use-cases/monthly-report)のドラフト / [規程 Q&A](/domains/finance/use-cases/policy-qa) |
+| AI の入り方 | 請求書の AI 処理（freee・弥生が提供する機能の補完）/ 突合の一次分析 / [月次レポート](/domains/finance/monthly-report)のドラフト / [規程 Q&A](/domains/finance/policy-qa) |
 | 関連システム | S/4HANA FI・CO、freee、弥生、楽楽精算 |
 | 成果指標の例 | 月次締め日数、証憑突合の残件数 |
 
@@ -82,13 +82,13 @@ flowchart LR
 | 項目 | 内容 |
 |---|---|
 | よくある痛み | 規程・手続きの問い合わせ対応 / 勤怠の締め催促 / 評価の事実整理 |
-| AI の入り方 | 規程 Q&A ボット（引用付き）/ [面接メモの事実抽出](/domains/hr/use-cases/interview-notes) / [オンボーディング資料](/domains/hr/use-cases/onboarding-materials) / 勤怠エラーの事前検知 |
+| AI の入り方 | 規程 Q&A ボット（引用付き）/ [面接メモの事実抽出](/domains/hr/interview-notes) / [オンボーディング資料](/domains/hr/onboarding-materials) / 勤怠エラーの事前検知 |
 | 関連システム | HCM（SAP SuccessFactors 等）、勤怠 SaaS（KING OF TIME 等）、給与ソフト |
 | 成果指標の例 | 問い合わせ対応時間、締め処理の残件数 |
 
 ## FDE の進め方: この分解を現場で使う
 
-1. **As-Is を書く**: 顧客の業務を 6 分類に当てはめ、プロセスごとに「工程 / 担当 / システム / 所要時間」を表にする（ヒアリングは [STEP 1](/guide/step-1-pick-a-task) の型）
+1. **As-Is を書く**: 顧客の業務を 6 分類に当てはめ、プロセスごとに「工程 / 担当 / システム / 所要時間」を表にする（ヒアリングは [発見](/guide/discovery) の型）
 2. **痛みに成果指標を紐づける**: 「入金消し込み 月 20 時間 → 半分」のように、減らす対象を数値で
 3. **AI の入り方を型から選ぶ**: ①文書処理（OCR + 抽出）②生成（ドラフト）③分類（構造化）④予測 ⑤対話（引用付き Q&A）。ほとんどの業務改善はこの 5 型の組合せ
 4. **連携方式を決める**: [クラウド別サービスマップ](/references/cloud-ai-services) の選択順（API > CSV バッチ > RPA）
