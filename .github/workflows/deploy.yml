@@ -5,14 +5,17 @@ name: Deploy (GitHub Pages + Hugging Face)
 on:
   push:
     branches: [main]
+    paths-ignore: ["docs/**", "README.md", "CONTRIBUTING.md", "GOVERNANCE.md", "AGENTS.md", ".github/ISSUE_TEMPLATE/**", ".github/PULL_REQUEST_TEMPLATE.md", ".github/dependabot.yml"]
   workflow_dispatch:
 
 permissions:
   contents: read
 
+# デプロイ途中でキャンセルすると Pages/HF が中途半端になるため、実行中は止めずに後続を待機させる
+# （待機中の古い run は最新の push で置き換えられる）
 concurrency:
-  group: deploy
-  cancel-in-progress: true
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
 
 env:
   REPO_PATH: /FDE-AI-Knowledge-Base
@@ -21,18 +24,19 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - uses: pnpm/action-setup@v6
+      - uses: ./.github/actions/setup
 
-      - uses: actions/setup-node@v7
+      - name: Cache Next.js build
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
         with:
-          node-version: 22
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+          path: apps/web/.next/cache
+          key: next-deploy-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+          restore-keys: |
+            next-deploy-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
 
       # Pages 用（basePath あり）
       - name: Build static site for GitHub Pages
@@ -42,7 +46,7 @@ jobs:
           NEXT_PUBLIC_BASE_PATH: ${{ env.REPO_PATH }}
           NEXT_PUBLIC_SITE_URL: ${{ env.SITE_URL }}
 
-      - uses: actions/upload-pages-artifact@v5
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: apps/web/out
 
@@ -55,7 +59,7 @@ jobs:
         env:
           NEXT_PUBLIC_SITE_URL: ${{ env.SITE_URL }}
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: hf-site
           path: apps/web/out
@@ -63,6 +67,7 @@ jobs:
   deploy-pages:
     needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       pages: write
       id-token: write
@@ -71,17 +76,18 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
 
   deploy-hf:
     needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           sparse-checkout: scripts
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           name: hf-site
           path: apps/web/out
@@ -92,4 +98,9 @@ jobs:
           HF_SPACE: jackywangsh/fde-kb
         run: |
           pip install -U huggingface_hub
-          python3 scripts/deploy-hf.py
+          for i in 1 2 3; do
+            python3 scripts/deploy-hf.py && exit 0
+            echo "::warning::HF deploy attempt $i failed; retrying in $((i*20))s"
+            sleep $((i*20))
+          done
+          exit 1

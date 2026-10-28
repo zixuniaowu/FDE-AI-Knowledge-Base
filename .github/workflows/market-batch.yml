@@ -7,40 +7,88 @@ on:
 
 permissions:
   contents: write
+  actions: write # GITHUB_TOKEN の push では Deploy が起動しないため、明示的に dispatch する
+
+concurrency:
+  group: market-batch
+  cancel-in-progress: false
 
 jobs:
   collect:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: main
 
-      - uses: pnpm/action-setup@v4
+      - uses: ./.github/actions/setup
 
-      - uses: actions/setup-node@v4
+      - name: Playwright version
+        id: pw
+        run: echo "version=$(pnpm exec playwright --version | awk '{print $2}')" >> "$GITHUB_OUTPUT"
+
+      - name: Cache Playwright browsers
+        id: pw-cache
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
         with:
-          node-version: 22
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.pw.outputs.version }}
 
       - name: Install Playwright browser
-        run: pnpm exec playwright install --with-deps chromium
+        run: |
+          if [ "${{ steps.pw-cache.outputs.cache-hit }}" = "true" ]; then
+            pnpm exec playwright install-deps chromium
+          else
+            pnpm exec playwright install --with-deps chromium
+          fi
 
-      - name: Collect market snapshot
-        run: node scripts/collect-market-data.mjs
+      - name: Collect market snapshot (with retries)
+        run: |
+          for i in 1 2 3; do
+            node scripts/collect-market-data.mjs && exit 0
+            echo "::warning::collect attempt $i failed; retrying in $((i*60))s"
+            git checkout -- data/market-history.json || true
+            sleep $((i*60))
+          done
+          echo "::error::市場データの収集に 3 回失敗しました（取得元サイトの障害/仕様変更の可能性）"
+          exit 1
 
       - name: Commit and push data
+        id: push
         run: |
           git config user.name "market-batch"
           git config user.email "actions@users.noreply.github.com"
           git add data/market-history.json
           if git diff --cached --quiet; then
             echo "データ変更なし"
-          else
-            git commit -m "chore(data): weekly FDE market snapshot $(date +%F)"
-            git push
-            echo " pushed — Pages / HF デプロイが自動で走ります"
+            echo "pushed=false" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
+          git commit -m "chore(data): weekly FDE market snapshot $(date +%F)"
+          for i in 1 2 3; do
+            if git push origin HEAD:main; then
+              echo "pushed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            echo "::warning::push attempt $i failed; rebasing on latest main"
+            sleep $((i*10))
+            git pull --rebase origin main
+          done
+          exit 1
+
+      - name: Trigger deploy
+        if: steps.push.outputs.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy.yml --ref main
+
+      - name: Job summary
+        if: always()
+        run: |
+          {
+            echo "### Market batch: ${{ job.status }}"
+            echo '```json'
+            node -e "const h=require('./data/market-history.json');console.log(JSON.stringify(h.snapshots.at(-1),null,2))" || true
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"

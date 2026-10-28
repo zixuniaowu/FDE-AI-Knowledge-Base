@@ -15,6 +15,27 @@
  */
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 
+// 一時的なネットワーク障害 / 5xx / 429 に備え、fetch を指数バックオフ付きでリトライする
+const rawFetch = globalThis.fetch;
+async function fetchWithRetry(url, opts = {}, attempts = 3) {
+  let lastErr;
+  for (let i = 1; i <= attempts; i++) {
+    try {
+      const res = await rawFetch(url, { ...opts, signal: AbortSignal.timeout(20000) });
+      if (res.status < 500 && res.status !== 429) return res;
+      lastErr = new Error(`HTTP ${res.status} ${url}`);
+    } catch (e) {
+      lastErr = e;
+    }
+    if (i < attempts) {
+      console.warn(`⚠ fetch 失敗 (${i}/${attempts}): ${lastErr?.message ?? lastErr} — リトライします`);
+      await new Promise((r) => setTimeout(r, 2000 * 2 ** (i - 1)));
+    }
+  }
+  throw lastErr;
+}
+const fetch = fetchWithRetry;
+
 const FB_URL = "https://freelance-board.com/jobs/fde";
 const FS_URL = "https://freelance-start.com/jobs/job_category-47";
 const LEVTECH_URL = "https://freelance.levtech.jp/word/list/150732/";
