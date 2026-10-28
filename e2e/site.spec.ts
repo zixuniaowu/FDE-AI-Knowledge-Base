@@ -49,7 +49,8 @@ test.describe("ガイド", () => {
     await expect(
       page.getByRole("link", { name: "フリーランススタート" }).first()
     ).toBeVisible();
-    await expect(page.getByText("108.1 万円").first()).toBeVisible();
+    // 週次バッチで値が変わるため固定値ではなく「N 万円」形式の数値表示を確認する
+    await expect(page.getByText(/\d+(\.\d+)? 万円/).first()).toBeVisible();
   });
 
   test("ベンダー動向ページに全体マップと対照表がある", async ({ page }) => {
@@ -94,8 +95,13 @@ test.describe("ガイド", () => {
     expect(Math.abs(after!.y - before!.y)).toBeGreaterThan(20);
   });
 
-  test("FDE とはページに概念図（mermaid SVG）が描画される", async ({ page }) => {
+  test("旧スラッグ what-is-pde は what-is-fde へリダイレクトされる", async ({ page }) => {
     await page.goto(p("/guide/what-is-pde/"));
+    await expect(page).toHaveURL(/\/guide\/what-is-fde\/$/, { timeout: 15000 });
+  });
+
+  test("FDE とはページに概念図（mermaid SVG）が描画される", async ({ page }) => {
+    await page.goto(p("/guide/what-is-fde/"));
     await expect(page.locator(".mermaid-figure svg")).toHaveCount(2, { timeout: 15000 });
     await expect(page.locator(".mermaid-figure svg").first()).toBeVisible();
   });

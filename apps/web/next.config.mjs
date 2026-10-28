@@ -1,4 +1,4 @@
-const basePath = process.env.PDE_BASE_PATH ?? "";
+const basePath = process.env.FDE_BASE_PATH ?? process.env.PDE_BASE_PATH ?? "";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {

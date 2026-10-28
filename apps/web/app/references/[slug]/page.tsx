@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getReference, listReferences } from "@pde/content-core";
+import { getReference, listReferences } from "@fde/content-core";
 import { Prose } from "@/components/Prose";
 import { Toc } from "@/components/Toc";
 import { Meta, StatusBadge } from "@/components/Badges";

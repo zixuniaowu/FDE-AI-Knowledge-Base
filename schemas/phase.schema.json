@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "PDE Phase (process step)",
+  "title": "FDE Phase (process step)",
   "description": "content/{locale}/process/<method>/<id>.md の frontmatter スキーマ",
   "type": "object",
   "required": ["id", "type", "method", "order", "title", "owners", "status", "updated"],

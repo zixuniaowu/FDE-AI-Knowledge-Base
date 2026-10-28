@@ -41,7 +41,7 @@ fs.writeFileSync(outFile, JSON.stringify(data, null, 2) + "\n");
 
 // ── 3. RSS feed ────────────────────────────────────────────────
 const siteUrl = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://zixuniaowu.github.io/PDE-AI-Knowledge-Base"
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://zixuniaowu.github.io/FDE-AI-Knowledge-Base"
 ).replace(/\/$/, "");
 
 const feedItems = [
@@ -69,7 +69,7 @@ const feedItems = [
 
 const feedXml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"><channel>
-<title>PDE Knowledge Base</title>
+<title>FDE Knowledge Base</title>
 <link>${siteUrl}/</link>
 <description>あらゆる領域と開発プロセスにAIを組み込むための実践ナレッジベース</description>
 <language>ja</language>
@@ -92,9 +92,9 @@ fs.writeFileSync(feedFile, feedXml);
 
 // ── 4. llms.txt (AI可読インデックス) ───────────────────────────
 const llms = [
-  "# PDE — Product Design Engineer Knowledge Base",
+  "# FDE — Forward Deployed Engineer Knowledge Base",
   "",
-  "> PDE（Product Design Engineer）は、製品の課題を考え、インタラクションを設計し、プロダクションコードを自分で書ける人。このナレッジベースは、領域×工程のマトリクスで PDE の実践知を整理する。",
+  "> FDE（Forward Deployed Engineer）は、顧客・事業部の現場に入り、AI を業務に組み込み、成果指標が動くまで責任を持つエンジニア。このナレッジベースは、領域×工程のマトリクスで FDE の実践知を整理する。",
   "",
   "## Guide (start here)",
   ...listGuides(root).map((g) => `- [${g.data.title}](${siteUrl}/guide/${g.data.id}/): ${g.data.summary}`),

@@ -75,7 +75,7 @@ describe("listGuides", () => {
     expect(guides.length).toBeGreaterThanOrEqual(7);
     const orders = guides.map((g) => g.data.order);
     expect([...orders].sort((a, b) => a - b)).toEqual(orders);
-    expect(guides[0]?.data.id).toBe("what-is-pde");
+    expect(guides[0]?.data.id).toBe("what-is-fde");
   });
 });
 

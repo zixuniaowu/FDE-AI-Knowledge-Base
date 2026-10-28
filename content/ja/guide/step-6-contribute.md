@@ -15,17 +15,17 @@ STEP 1〜5 で作った自分のやり方は、個人の中に閉じれば技、
 
 ### レベル A: 使ってみて気づきを出す（5 分）
 
-- 既存コンテンツの誤り・古さ・わかりにくさを [Issue](https://github.com/zixuniaowu/PDE-AI-Knowledge-Base/issues/new/choose) で報告
+- 既存コンテンツの誤り・古さ・わかりにくさを [Issue](https://github.com/zixuniaowu/FDE-AI-Knowledge-Base/issues/new/choose) で報告
 
 ### レベル B: 自分の領域・自分のやり方を書く（1〜2 週間）
 
 - **領域の知見**: あなたの業界で AI プロダクトを作るときの実戦知識（`content/ja/domains/_template/` から）
 - **工程の知見**: あなたの FDE としての進め方・ツール構成・プロンプトの型（`content/ja/process/`）
-- 提案は [RFC](https://github.com/zixuniaowu/PDE-AI-Knowledge-Base/blob/main/docs/rfc/README.md) も歓迎
+- 提案は [RFC](https://github.com/zixuniaowu/FDE-AI-Knowledge-Base/blob/main/docs/rfc/README.md) も歓迎
 
 ### レベル C: 領域オーナーになる
 
-- その領域の正確性に責任を持ち、他の人の PR をレビューする（[GOVERNANCE.md](https://github.com/zixuniaowu/PDE-AI-Knowledge-Base/blob/main/GOVERNANCE.md)）
+- その領域の正確性に責任を持ち、他の人の PR をレビューする（[GOVERNANCE.md](https://github.com/zixuniaowu/FDE-AI-Knowledge-Base/blob/main/GOVERNANCE.md)）
 
 ```mermaid
 flowchart LR

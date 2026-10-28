@@ -1,5 +1,5 @@
 ---
-id: what-is-pde
+id: what-is-fde
 type: guide
 order: 0
 title: FDE とは・このガイドの使い方

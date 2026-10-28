@@ -1,4 +1,4 @@
-import { listDomains, listIntersections, listPhases } from "@pde/content-core";
+import { listDomains, listIntersections, listPhases } from "@fde/content-core";
 
 const STEPS = [
   "課題ヒアリング",

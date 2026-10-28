@@ -71,7 +71,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             ))}
             <NavDropdown />
             <a
-              href="https://github.com/zixuniaowu/PDE-AI-Knowledge-Base"
+              href="https://github.com/zixuniaowu/FDE-AI-Knowledge-Base"
               className="nav-link"
               target="_blank"
               rel="noopener noreferrer"
@@ -87,7 +87,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <footer className="site-footer">
           <div className="container">
             FDE — Forward Deployed Engineer Knowledge Base · Code: MIT / Content: CC BY 4.0 ·
-            <Link href="https://github.com/zixuniaowu/PDE-AI-Knowledge-Base/blob/main/CONTRIBUTING.md">
+            <Link href="https://github.com/zixuniaowu/FDE-AI-Knowledge-Base/blob/main/CONTRIBUTING.md">
               貢献する
             </Link>{" "}
             ·{" "}

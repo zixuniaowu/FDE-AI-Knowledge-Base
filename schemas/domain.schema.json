@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "PDE Domain Meta",
+  "title": "FDE Domain Meta",
   "description": "content/{locale}/domains/<id>/meta.json のスキーマ（正規定義は packages/content-core を参照）",
   "type": "object",
   "required": ["id", "name", "description", "owners", "status", "updated"],

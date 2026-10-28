@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { listDomains, listPhases } from "@pde/content-core";
+import { listDomains, listPhases } from "@fde/content-core";
 
 export const metadata = { title: "マトリクス" };
 
@@ -54,7 +54,7 @@ export default function MatrixPage() {
       <div className="notice">
         各セルは「領域 × 工程」の交点ページです。工程の役割分担に加え、その交点に紐づくユースケースが表示されます。交点専用の知見が無いセルは、あなたが最初の 1
         ページを書くチャンス。提案は
-        <Link href="https://github.com/zixuniaowu/PDE-AI-Knowledge-Base/blob/main/docs/rfc/README.md">
+        <Link href="https://github.com/zixuniaowu/FDE-AI-Knowledge-Base/blob/main/docs/rfc/README.md">
           {" "}
           RFC{" "}
         </Link>

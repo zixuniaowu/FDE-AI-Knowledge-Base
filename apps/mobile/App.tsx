@@ -81,12 +81,12 @@ export default function App() {
           </TouchableOpacity>
         )}
         <Text style={styles.headerTitle}>
-          {screen.name === "home" && "PDE Knowledge"}
+          {screen.name === "home" && "FDE Knowledge"}
           {screen.name === "domain" && `${screen.item.icon ?? "📦"} ${screen.item.name}`}
           {screen.name === "usecase" && screen.item.title}
           {screen.name === "process" && "工程"}
           {screen.name === "phase" && `${screen.item.method} · ${screen.item.title}`}
-          {screen.name === "guide" && "PDE の始め方"}
+          {screen.name === "guide" && "FDE の始め方"}
           {screen.name === "guideStep" && screen.item.title}
         </Text>
       </View>
@@ -177,7 +177,7 @@ export default function App() {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() =>
-              Linking.openURL("https://github.com/zixuniaowu/PDE-AI-Knowledge-Base")
+              Linking.openURL("https://github.com/zixuniaowu/FDE-AI-Knowledge-Base")
             }
           >
             <Text style={styles.footerLink}>GitHub で貢献する</Text>

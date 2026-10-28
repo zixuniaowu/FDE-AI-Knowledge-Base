@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { listGuides } from "@pde/content-core";
+import { listGuides } from "@fde/content-core";
 import { StatusBadge } from "@/components/Badges";
 
 export const metadata = { title: "FDE の始め方" };

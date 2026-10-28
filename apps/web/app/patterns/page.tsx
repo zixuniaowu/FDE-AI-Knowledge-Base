@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { listPatterns } from "@pde/content-core";
+import { listPatterns } from "@fde/content-core";
 import { StatusBadge } from "@/components/Badges";
 
 export const metadata = { title: "パターン" };

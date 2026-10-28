@@ -15,7 +15,7 @@ const OUT = "screenshots";
 const PAGES = [
   { path: "/", name: "home" },
   { path: "/guide/", name: "guide" },
-  { path: "/guide/what-is-pde/", name: "guide-what-is" },
+  { path: "/guide/what-is-fde/", name: "guide-what-is" },
   { path: "/domains/", name: "domains" },
   { path: "/domains/education/", name: "domain-education" },
   { path: "/process/", name: "process" },

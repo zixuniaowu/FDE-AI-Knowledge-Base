@@ -48,7 +48,7 @@ importers:
 
   apps/web:
     dependencies:
-      '@pde/content-core':
+      '@fde/content-core':
         specifier: workspace:*
         version: link:../../packages/content-core
       github-slugger:

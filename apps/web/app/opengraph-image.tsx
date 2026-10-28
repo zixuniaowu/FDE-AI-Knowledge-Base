@@ -29,7 +29,7 @@ export default function OpenGraphImage() {
           顧客の現場に入り、AI を業務に組み込み、成果に変える — 領域 × 工程の実践知
         </div>
         <div style={{ display: "flex", fontSize: 24, marginTop: 44, color: "#64748b" }}>
-          zixuniaowu/PDE-AI-Knowledge-Base
+          zixuniaowu/FDE-AI-Knowledge-Base
         </div>
       </div>
     ),

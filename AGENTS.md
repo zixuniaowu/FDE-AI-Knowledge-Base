@@ -1,6 +1,6 @@
 # AGENTS.md
 
-pnpm monorepo. Japanese FDE knowledge base: Markdown content in `content/ja/` (Zod-validated frontmatter via `packages/content-core`) rendered by two "renderers": `apps/web` (Next.js 14 App Router, static export → GitHub Pages on push to `main`) and `apps/mobile` (Expo, reads a generated JSON). Repo name "PDE" is legacy; project identity is FDE.
+pnpm monorepo. Japanese FDE knowledge base: Markdown content in `content/ja/` (Zod-validated frontmatter via `packages/content-core`) rendered by two "renderers": `apps/web` (Next.js 14 App Router, static export → GitHub Pages on push to `main`) and `apps/mobile` (Expo, reads a generated JSON). Project identity is FDE (formerly "PDE"; legacy `PDE_*` env vars are still accepted as fallbacks).
 
 ## Commands
 
@@ -54,13 +54,17 @@ Before reporting any change as done, run `pnpm exec playwright test` (25 tests: 
   levtech + freelance-board are plain fetch. Manual entry: `--manual --fs N ...`.
 - **ベンダー動向** (`/vendors`): renders `data/it-vendors.json` — add/update
   vendors in the JSON only, no code changes. Linked from nav and llms.txt.
-- **HF Space deploy**: `deploy-hf.yml` uploads `apps/web/out` to
-  `jackywangsh/fde-knowledge-base` (Static Space) using secret `HF_TOKEN`.
+- **Deploy**: single workflow `deploy.yml` builds once per target in one job
+  (Pages build with basePath, HF build without) and publishes to GitHub Pages
+  and to HF Space `jackywangsh/fde-kb` (Static Space, secret `HF_TOKEN`).
+- **Generated files** (`apps/mobile/src/data/content.json`, `apps/web/public/feed.xml`,
+  `apps/web/public/llms.txt`) are NOT committed; `pnpm build:mobile-content` creates
+  them and runs automatically via predev / prebuild:web / pretypecheck / mobile prestart.
   GOTCHA: out/ contains a binary (opengraph-image, no extension) — plain git
   push to HF is rejected ("contains binary files"); must upload via
-  huggingface_hub (hf_xet). Use scripts/deploy-hf.py / deploy-hf.sh.
+  huggingface_hub (hf_xet). Use scripts/deploy-hf.py (HF_TOKEN, HF_SPACE).
 
 ## Env vars
 
-- `PDE_CONTENT_DIR` — override content root (otherwise content-core walks up from cwd to find `content/`; default locale `ja`).
-- `PDE_BASE_PATH` (+ `NEXT_PUBLIC_BASE_PATH`, `NEXT_PUBLIC_SITE_URL`) — set by CI for the GitHub Pages build (`/PDE-AI-Knowledge-Base`). Note: `docs/architecture.md` says `FDE_BASE_PATH`, but `apps/web/next.config.mjs` actually reads `PDE_BASE_PATH`.
+- `FDE_CONTENT_DIR` — override content root (otherwise content-core walks up from cwd to find `content/`; default locale `ja`).
+- `FDE_BASE_PATH` (+ `NEXT_PUBLIC_BASE_PATH`, `NEXT_PUBLIC_SITE_URL`) — set by CI for the GitHub Pages build (`/FDE-AI-Knowledge-Base`).

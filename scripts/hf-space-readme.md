@@ -8,4 +8,4 @@ pinned: false
 ---
 # FDE — Forward Deployed Engineer Knowledge Base
 
-https://zixuniaowu.github.io/PDE-AI-Knowledge-Base/
+https://zixuniaowu.github.io/FDE-AI-Knowledge-Base/
