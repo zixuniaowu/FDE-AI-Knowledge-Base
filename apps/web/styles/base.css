@@ -1,0 +1,72 @@
+:root {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --text-sub: #475569;
+  --text-faint: #94a3b8;
+  --accent: #2563eb;
+  --accent-soft: #dbeafe;
+  --ai: #7c3aed;
+  --ai-soft: #ede9fe;
+  --human: #0891b2;
+  --human-soft: #cffafe;
+  --warn: #d97706;
+  --radius: 12px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b1120;
+    --surface: #111a2e;
+    --border: #23304a;
+    --text: #e2e8f0;
+    --text-sub: #94a3b8;
+    --text-faint: #64748b;
+    --accent: #60a5fa;
+    --accent-soft: #1e3a5f;
+    --ai: #a78bfa;
+    --ai-soft: #2e2447;
+    --human: #22d3ee;
+    --human-soft: #164e5a;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic UI", "Noto Sans JP",
+    system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.75;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--surface);
+  color: var(--text);
+  padding: 8px 16px;
+  border-radius: 0 0 8px 0;
+  z-index: 100;
+}
+.skip-link:focus {
+  left: 0;
+}

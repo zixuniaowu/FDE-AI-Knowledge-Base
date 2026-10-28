@@ -1,0 +1,122 @@
+/* ── components ─────────────────────────── */
+.card {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  color: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+a.card:hover {
+  text-decoration: none;
+  border-color: var(--accent);
+  box-shadow: 0 2px 12px rgba(37, 99, 235, 0.12);
+}
+.card h3 {
+  margin: 6px 0 4px;
+}
+.card p {
+  margin: 0;
+  color: var(--text-sub);
+  font-size: 14px;
+}
+.card .icon {
+  font-size: 26px;
+}
+
+.grid {
+  display: grid;
+  gap: 14px;
+}
+.grid-2 {
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+.grid-3 {
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
+.badge {
+  display: inline-block;
+  font-size: 12px;
+  padding: 1px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--text-sub);
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.badge-draft {
+  background: var(--accent-soft);
+  border-color: transparent;
+  color: var(--accent);
+}
+.badge-reviewed {
+  background: var(--human-soft);
+  border-color: transparent;
+  color: var(--human);
+}
+.badge-approved {
+  background: var(--ai-soft);
+  border-color: transparent;
+  color: var(--ai);
+}
+.badge-ai {
+  background: var(--ai-soft);
+  border-color: transparent;
+  color: var(--ai);
+}
+.badge-human {
+  background: var(--human-soft);
+  border-color: transparent;
+  color: var(--human);
+}
+
+.section-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin: 32px 0 10px;
+}
+
+.hero {
+  padding: 28px 0 8px;
+}
+.hero h1 {
+  font-size: 34px;
+}
+
+.notice {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  font-size: 14px;
+  color: var(--text-sub);
+}
+
+.prose .mermaid-figure {
+  margin: 20px 0;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow-x: auto;
+  text-align: center;
+}
+.prose .mermaid-figure svg {
+  max-width: 100%;
+  height: auto;
+}
+.prose .mermaid-fallback {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  overflow-x: auto;
+  font-size: 13.5px;
+  white-space: pre-wrap;
+}

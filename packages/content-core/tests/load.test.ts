@@ -90,7 +90,7 @@ describe("listIntersections", () => {
   });
 
   it("getIntersection returns null for missing notes", () => {
-    expect(getIntersection("education", "waterfall", "deployment")).toBeNull();
+    expect(getIntersection("education", "agile", "retrospective")).toBeNull();
   });
 
   it("getIntersection returns the note for a written cell", () => {
