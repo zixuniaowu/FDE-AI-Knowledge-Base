@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { GUIDE_PARTS, listGuides, listPatterns } from "@fde/content-core";
+import { CHAPTER_FIGURES } from "@/components/fig/specs";
 import { ArticleLayout, type LinkCard } from "@/components/ArticleLayout";
 import { Redirect } from "@/components/Redirect";
 import { PART_STYLE, REDIRECTS, redirectSlugs } from "@/lib/site";
@@ -53,6 +54,7 @@ export default function GuideDetailPage({ params }: { params: { slug: string } }
       owners={doc.data.owners}
       markdown={doc.content}
       linkBase="/guide"
+      figure={CHAPTER_FIGURES[params.slug]?.()}
       accent={PART_STYLE[doc.data.part].accent}
       icon={PART_STYLE[doc.data.part].icon}
       prev={card(index - 1)}

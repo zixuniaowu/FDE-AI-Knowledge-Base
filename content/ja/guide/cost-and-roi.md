@@ -96,6 +96,29 @@ ROI     = （年間効果 − 年間費用）÷ 年間費用
 
 ### 公開事例の数字の読み方
 
+```stats
+{
+ "items": [
+  {
+   "value": "78.8 万時間",
+   "label": "パナソニック コネクト: 社内 AI アシスタント 3 年目の年間削減時間（総労働時間の 3.4%）",
+   "source": {
+    "label": "パナソニック ニュースルーム",
+    "href": "https://news.panasonic.com/jp/press/jn260729-1"
+   }
+  },
+  {
+   "value": "230 万件",
+   "label": "Klarna: AI アシスタント提供開始 1 か月の会話数（チャットの 3 分の 2 を処理）",
+   "source": {
+    "label": "Klarna プレスリリース",
+    "href": "https://www.klarna.com/international/press/klarna-ai-assistant-handles-two-thirds-of-customer-service-chats-in-its-first-month/"
+   }
+  }
+ ]
+}
+```
+
 | 事例 | 公表された数字 | 読み方 |
 |---|---|---|
 | パナソニック コネクト（社内 AI アシスタント 3 年目） | 年間 78.8 万時間削減（総労働時間の 3.4%）、利用 361 万回、1 回あたり約 33 分削減 | 「利用回数 × 1 回あたり削減時間」で全社効果を出す型。1 回あたりの削減時間の算出方法も併せて確認する（[出典](https://news.panasonic.com/jp/press/jn260729-1)） |

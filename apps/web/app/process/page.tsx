@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { listPhases } from "@fde/content-core";
 import { StatusBadge } from "@/components/Badges";
+import { FlowFig } from "@/components/fig/layouts";
 import { VModel } from "@/components/VModel";
 
 export const metadata = { title: "工程" };
@@ -21,6 +22,18 @@ export default function ProcessPage() {
       {methods.map((method) => (
         <section key={method}>
           <p className="section-label">{method}</p>
+          <FlowFig
+            uid={`pr-${method}`}
+            title={method === "waterfall" ? "ウォーターフォールの工程" : "アジャイル（スプリント）の工程"}
+            loop={method === "agile" ? "次のスプリントへ" : undefined}
+            steps={phases
+              .filter((p) => p.data.method === method)
+              .map((p, i) => ({
+                label: p.data.title.replace(/（.+?）$/, ""),
+                sub: (p.data.title.match(/（(.+?)）$/)?.[1] ?? "").replace(/^(.{11})/, "$1\n"),
+                icon: (method === "agile" ? (["map", "filter", "chat", "eye", "repeat"] as const) : (["list", "layers", "code", "check", "rocket", "repeat"] as const))[i] ?? "list",
+              }))}
+          />
           {method === "waterfall" && (
             <div className="vmodel-wrap">
               <VModel />

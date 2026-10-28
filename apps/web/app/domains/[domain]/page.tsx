@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDomain, listDomains, listMethods, listPhases, listUseCases } from "@fde/content-core";
+import { DomainCover } from "@/components/fig/DomainCover";
 import { ArticleLayout } from "@/components/ArticleLayout";
 
 export function generateStaticParams() {
@@ -41,6 +42,7 @@ export default function DomainPage({ params }: { params: { domain: string } }) {
       tags={doc.meta.tags}
       markdown={doc.content}
       linkBase={`/domains/${domain}`}
+      figure={<DomainCover id={domain} name={doc.meta.name} useCases={useCases.map((u) => ({ title: u.data.title, aiPatterns: u.data.aiPatterns }))} />}
       accent="teal"
       prev={nav(index - 1)}
       next={nav(index + 1)}
