@@ -10,11 +10,45 @@ test.describe("ホームとグローバルナビ", () => {
   });
 
   test("全ページでヘッダーとフッターが表示される", async ({ page }) => {
-    for (const path of ["/guide/", "/domains/", "/process/", "/patterns/", "/matrix/", "/vendors/"]) {
+    for (const path of ["/guide/", "/domains/", "/process/", "/patterns/", "/matrix/", "/vendors/", "/market/", "/search/"]) {
       await page.goto(p(path));
       await expect(page.getByRole("link", { name: "FDE", exact: true })).toBeVisible();
       await expect(page.getByText("Code: MIT / Content: CC BY 4.0")).toBeVisible();
     }
+  });
+});
+
+test.describe("リデザイン（IA・検索・モバイル）", () => {
+  test("ホームに「目的から探す」カードが 6 枚ある", async ({ page }) => {
+    await page.goto(p("/"));
+    await expect(page.getByText("何をしに来ましたか？")).toBeVisible();
+    expect(await page.locator("a.job-card").count()).toBe(6);
+  });
+
+  test("ホームに今週の案件数サマリーがある", async ({ page }) => {
+    await page.goto(p("/"));
+    await expect(page.getByText("FDE の市場（週次で追跡）")).toBeVisible();
+    await expect(page.getByRole("link", { name: "市場・動向" }).first()).toBeVisible();
+  });
+
+  test("検索で RAG パターンが見つかる", async ({ page }) => {
+    await page.goto(p("/search/"));
+    await page.getByLabel("検索キーワード").fill("RAG");
+    await expect(page.locator(".search-results a").first()).toBeVisible();
+    await expect(page.locator(".search-results")).toContainText("RAG");
+  });
+
+  test("スマホ幅ではハンバーガーメニューから遷移できる", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(p("/"));
+    await page.locator(".nav-mobile summary").click();
+    await page.locator(".nav-mobile-panel").getByRole("link", { name: "パターン" }).click();
+    await expect(page).toHaveURL(/\/patterns\/?$/);
+  });
+
+  test("成果物テンプレート集が表示される", async ({ page }) => {
+    await page.goto(p("/references/deliverables/"));
+    await expect(page.getByRole("heading", { name: /業務分析シート/ })).toBeVisible();
   });
 });
 
@@ -42,8 +76,8 @@ test.describe("ガイド", () => {
   });
 
 
-  test("ホームに市場分析の統計グラフと出所リンクがある", async ({ page }) => {
-    await page.goto(p("/"));
+  test("市場・動向ページに統計グラフと出所リンクがある", async ({ page }) => {
+    await page.goto(p("/market/"));
     await expect(page.getByText("FDE の市場（週次で追跡）")).toBeVisible();
     expect(await page.locator(".chart-slice").count()).toBeGreaterThanOrEqual(5);
     await expect(
@@ -68,8 +102,8 @@ test.describe("ガイド", () => {
     await expect(page.locator(".kg-graph a").first()).toBeVisible();
   });
 
-  test("ホームに月別案件数バーと魚骨図がある", async ({ page }) => {
-    await page.goto(p("/"));
+  test("市場・動向ページに週別案件数バーと魚骨図がある", async ({ page }) => {
+    await page.goto(p("/market/"));
     const bars = page.locator(".weekly-bars rect");
     await expect(bars.first()).toBeVisible();
     expect(await bars.count()).toBeGreaterThanOrEqual(1);

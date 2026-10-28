@@ -1,0 +1,10 @@
+/* ── mobile ─────────────────────────────── */
+@media (max-width: 640px) {
+  h1,
+  .hero h1 {
+    font-size: 25px;
+  }
+  main.container {
+    padding-top: 20px;
+  }
+}

@@ -1,0 +1,93 @@
+/* 知識グラフ */
+.kg-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 12px 8px;
+}
+.kg-graph a {
+  cursor: pointer;
+}
+.kg-graph a:hover circle {
+  stroke-width: 2.5;
+}
+
+/* 魚骨図・トレンドグラフ */
+.fishbone-wrap,
+.trend-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 12px 8px;
+}
+
+/* ── V モデル図 ─────────────────────────── */
+.vmodel-wrap {
+  margin: 4px 0 20px;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow-x: auto;
+}
+.vmodel-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  margin-top: 12px;
+}
+.vmodel-table th,
+.vmodel-table td {
+  border: 1px solid var(--border);
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+.vmodel-table th {
+  background: var(--bg);
+  font-size: 12.5px;
+  color: var(--text-sub);
+}
+
+/* ── requirements map ───────────────────── */
+.req-list {
+  display: grid;
+  gap: 12px;
+}
+.req-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  display: grid;
+  gap: 8px;
+}
+.req-skill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.req-skill strong {
+  font-size: 15px;
+}
+.req-prep {
+  font-size: 14px;
+  color: var(--text-sub);
+}
+.req-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+a.req-links,
+.req-links a {
+  font-size: 12.5px;
+}
+@media (max-width: 640px) {
+  .req-item {
+    padding: 14px;
+  }
+}

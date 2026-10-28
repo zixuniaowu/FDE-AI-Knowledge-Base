@@ -21,6 +21,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const entries: Entry[] = [
     { path: "/", priority: 1 },
     { path: "/vendors/", priority: 0.8 },
+    { path: "/market/", priority: 0.8 },
+    { path: "/search/", priority: 0.5 },
     { path: "/guide/", priority: 0.9 },
     { path: "/domains/", priority: 0.9 },
     { path: "/process/", priority: 0.9 },

@@ -1,0 +1,203 @@
+/* ── 2026-10 リデザイン: IA・共通テンプレート・モバイルナビ ── */
+
+/* ヘッダー: 主ナビ + 右側（検索 / GitHub / モバイルメニュー） */
+.site-header .container {
+  overflow: visible;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+}
+.nav-mobile {
+  display: none;
+  position: relative;
+}
+.nav-mobile summary {
+  list-style: none;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+.nav-mobile summary::-webkit-details-marker {
+  display: none;
+}
+.nav-mobile-panel {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 32px rgb(15 23 42 / 0.18);
+  padding: 6px;
+  z-index: 50;
+}
+.nav-mobile-panel a {
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: var(--text);
+}
+.nav-mobile-panel a:hover {
+  background: var(--accent-soft);
+  text-decoration: none;
+}
+@media (max-width: 860px) {
+  .nav-links,
+  .nav-github,
+  .nav-search-label {
+    display: none;
+  }
+  .nav-mobile {
+    display: block;
+  }
+}
+
+/* 共通ページ見出し */
+.page-header {
+  margin: 8px 0 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.page-header h1 {
+  margin: 4px 0 8px;
+}
+.section-title {
+  font-size: 22px;
+  margin: 0 0 16px;
+}
+
+/* カードグリッド（ハブページ） */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+.card-grid .card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.card-grid .card span {
+  color: var(--text-sub);
+  font-size: 13px;
+}
+
+/* ホーム: 目的から探す */
+.job-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+.job-card {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 12px;
+  align-items: center;
+  padding: 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+.job-card:hover {
+  text-decoration: none;
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgb(37 99 235 / 0.12);
+}
+.job-icon {
+  grid-row: span 2;
+  font-size: 28px;
+  text-align: center;
+}
+.job-card strong {
+  font-size: 16px;
+}
+.job-card span:last-child {
+  font-size: 13px;
+  color: var(--text-sub);
+}
+
+/* 検索 */
+.search-input {
+  width: 100%;
+  font-size: 18px;
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+}
+.search-input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+.search-count {
+  color: var(--text-sub);
+  font-size: 13px;
+}
+.search-results {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+  display: grid;
+  gap: 8px;
+}
+.search-results a {
+  display: grid;
+  gap: 2px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+}
+.search-results a:hover {
+  border-color: var(--accent);
+  text-decoration: none;
+}
+.search-kind {
+  font-size: 12px;
+  color: var(--accent);
+}
+.search-summary {
+  font-size: 13px;
+  color: var(--text-sub);
+}
+
+/* Markdown のチェックリスト（- [ ]）を見やすく */
+.prose li:has(> input[type="checkbox"]) {
+  list-style: none;
+  margin-left: -1.2em;
+}
+.prose input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+/* 表・図の横スクロール（スマホ） */
+@media (max-width: 640px) {
+  .prose table {
+    display: block;
+    overflow-x: auto;
+  }
+  .job-card {
+    padding: 14px;
+  }
+}

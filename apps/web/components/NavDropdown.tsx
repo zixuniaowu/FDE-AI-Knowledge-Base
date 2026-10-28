@@ -6,6 +6,16 @@ import { createPortal } from "react-dom";
 
 const ITEMS = [
   {
+    href: "/matrix",
+    label: "領域 × 工程マトリクス",
+    desc: "交点ごとの注意点と成果物",
+  },
+  {
+    href: "/process",
+    label: "工程（ウォーターフォール / アジャイル）",
+    desc: "工程別に AI をどう入れるか",
+  },
+  {
     href: "/references/prompt-tips",
     label: "プロンプト小技集",
     desc: "そのまま使える依頼の型 20+",

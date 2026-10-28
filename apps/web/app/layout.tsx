@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import { NavDropdown } from "@/components/NavDropdown";
 import { PwaRegister } from "@/components/PwaRegister";
+import { NAV } from "@/lib/site";
 import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
@@ -41,15 +42,6 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-const nav = [
-  { href: "/references/market-demand", label: "需要分析" },
-  { href: "/vendors", label: "ベンダー動向" },
-  { href: "/guide", label: "始め方" },
-  { href: "/domains", label: "領域" },
-  { href: "/process", label: "工程" },
-  { href: "/patterns", label: "パターン" },
-  { href: "/matrix", label: "マトリクス" },
-];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -64,21 +56,41 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/" className="brand">
               FDE
             </Link>
-            {nav.map((n) => (
-              <Link key={n.href} href={n.href} className="nav-link">
-                {n.label}
+            <nav className="nav-links" aria-label="メイン">
+              {NAV.map((n) => (
+                <Link key={n.href} href={n.href} className="nav-link">
+                  {n.label}
+                </Link>
+              ))}
+              <NavDropdown />
+            </nav>
+            <div className="nav-right">
+              <Link href="/search" className="nav-link nav-search" aria-label="検索">
+                🔍<span className="nav-search-label"> 検索</span>
               </Link>
-            ))}
-            <NavDropdown />
-            <a
-              href="https://github.com/zixuniaowu/FDE-AI-Knowledge-Base"
-              className="nav-link"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ marginLeft: "auto" }}
-            >
-              GitHub
-            </a>
+              <a
+                href="https://github.com/zixuniaowu/FDE-AI-Knowledge-Base"
+                className="nav-link nav-github"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                GitHub
+              </a>
+              <details className="nav-mobile">
+                <summary aria-label="メニュー">☰</summary>
+                <div className="nav-mobile-panel">
+                  {NAV.map((n) => (
+                    <Link key={n.href} href={n.href}>
+                      {n.label}
+                    </Link>
+                  ))}
+                  <Link href="/matrix">マトリクス</Link>
+                  <Link href="/process">工程</Link>
+                  <Link href="/vendors">ベンダー動向</Link>
+                  <Link href="/search">検索</Link>
+                </div>
+              </details>
+            </div>
           </div>
         </header>
         <main className="container" id="main">
