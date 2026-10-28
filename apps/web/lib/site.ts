@@ -1,3 +1,5 @@
+import type { IconName } from "@/components/Icon";
+
 /** サイトの情報設計（IA）の単一ソース。ナビ・ホーム・フッター・リダイレクトが参照する。
  *
  * v2 の IA（docs/audit.md 参照）:
@@ -30,19 +32,19 @@ export const NAV_MORE: NavItem[] = [
 
 export interface Job {
   href: string;
-  icon: string;
+  icon: IconName;
   title: string;
   desc: string;
 }
 
 /** ホームの「目的から探す」カード */
 export const JOBS: Job[] = [
-  { href: "/guide/what-is-fde", icon: "🧭", title: "FDE を理解する", desc: "定義・他職種との違い・日本での位置づけ" },
-  { href: "/guide/discovery", icon: "🪜", title: "案件を進める", desc: "発見 → 要件・KPI → 設計 → 構築 → 評価 → 本番化" },
-  { href: "/guide/security-governance", icon: "🛡️", title: "統制とコストを押さえる", desc: "セキュリティ・ガバナンス・費用対効果・関係者" },
-  { href: "/patterns", icon: "🧩", title: "実装パターンを選ぶ", desc: "RAG・Agent・評価など 9 型の判断表と手順" },
-  { href: "/domains", icon: "🏭", title: "業界別に進める", desc: "10 領域 × 11 工程、110 の交点プレイブック" },
-  { href: "/guide/career-roadmap", icon: "🎯", title: "FDE になる・採用する", desc: "キャリア・面接対策・採用設計" },
+  { href: "/guide/what-is-fde", icon: "compass", title: "FDE を理解する", desc: "定義・他職種との違い・日本での位置づけ" },
+  { href: "/guide/discovery", icon: "route", title: "案件を進める", desc: "発見 → 要件・KPI → 設計 → 構築 → 評価 → 本番化" },
+  { href: "/guide/security-governance", icon: "shield", title: "統制とコストを押さえる", desc: "セキュリティ・ガバナンス・費用対効果・関係者" },
+  { href: "/patterns", icon: "puzzle", title: "実装パターンを選ぶ", desc: "RAG・Agent・評価など 9 型の判断表と手順" },
+  { href: "/domains", icon: "grid", title: "業界別に進める", desc: "10 領域 × 11 工程、110 の交点プレイブック" },
+  { href: "/guide/career-roadmap", icon: "target", title: "FDE になる・採用する", desc: "キャリア・面接対策・採用設計" },
 ];
 
 /** 削除・統合したページの移転先（静的書き出しのため meta refresh で実装） */
@@ -66,3 +68,11 @@ export function redirectSlugs(prefix: "/guide" | "/references"): string[] {
     .filter((k) => k.startsWith(prefix + "/"))
     .map((k) => k.slice(prefix.length + 1));
 }
+
+/** 学習パスの各部の色とアイコン（章カバー・ホームのレールで共通） */
+export const PART_STYLE: Record<string, { icon: IconName; accent: string; en: string }> = {
+  understand: { icon: "compass", accent: "indigo", en: "UNDERSTAND" },
+  practice: { icon: "rocket", accent: "teal", en: "PRACTICE" },
+  govern: { icon: "shield", accent: "amber", en: "GOVERN" },
+  career: { icon: "briefcase", accent: "rose", en: "CAREER" },
+};

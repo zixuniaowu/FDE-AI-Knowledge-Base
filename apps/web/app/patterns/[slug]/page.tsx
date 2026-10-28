@@ -46,6 +46,8 @@ export default function PatternPage({ params }: { params: { slug: string } }) {
       owners={doc.data.owners}
       markdown={doc.content}
       linkBase="/patterns"
+      accent="indigo"
+      icon="puzzle"
       prev={nav(index - 1)}
       next={nav(index + 1)}
       related={[...applying, ...guides]}

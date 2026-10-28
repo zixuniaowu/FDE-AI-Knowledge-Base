@@ -53,6 +53,8 @@ export default function ReferencePage({ params }: { params: { slug: string } }) 
       owners={doc.data.owners}
       markdown={doc.content}
       linkBase="/references"
+      accent="amber"
+      icon="file"
       related={[...citing, ...siblings].slice(0, 6)}
     />
   );

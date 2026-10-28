@@ -2,6 +2,8 @@ import Link from "next/link";
 import { GUIDE_PARTS, listGuides } from "@fde/content-core";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { readingMinutes } from "@/components/ArticleLayout";
+import { Icon } from "@/components/Icon";
+import { PART_STYLE } from "@/lib/site";
 
 export const metadata = {
   title: "学習パス",
@@ -28,8 +30,11 @@ export default function GuidePage() {
         {GUIDE_PARTS.map((part) => {
           const chapters = guides.filter((g) => g.data.part === part.id);
           return (
-            <li key={part.id} id={part.id} className="path-part">
+            <li key={part.id} id={part.id} className={`path-part accent-${PART_STYLE[part.id].accent}`}>
               <div className="path-part-head">
+                <span className="icon-tile">
+                  <Icon name={PART_STYLE[part.id].icon} size={20} />
+                </span>
                 <h2>{part.label}</h2>
                 <p>{part.desc}</p>
               </div>

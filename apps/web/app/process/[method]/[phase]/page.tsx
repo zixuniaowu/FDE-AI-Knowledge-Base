@@ -36,6 +36,8 @@ export default function PhasePage({ params }: { params: { method: string; phase:
       owners={doc.data.owners}
       markdown={doc.content}
       linkBase={`/process/${method}`}
+      accent="rose"
+      icon="route"
       prev={nav(index - 1)}
       next={nav(index + 1)}
     >

@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import historyData from "../../../../data/market-history.json";
-import { RatePie, StatChips, WeeklyDemandBars } from "@/components/charts";
+import { RatePie, WeeklyDemandBars } from "@/components/charts";
 import type { MarketSnapshot } from "@/components/charts";
 import { DemandFishbone } from "@/components/DemandFishbone";
 import { MarketSourcesTable } from "@/components/MarketSources";
 import { PageHeader } from "@/components/PageHeader";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { Sparkline } from "@/components/Sparkline";
+import { heroMarket } from "@/lib/market";
 
 export const metadata: Metadata = {
   title: "市場・動向",
@@ -15,13 +18,40 @@ export const metadata: Metadata = {
 export default function MarketPage() {
   const snapshots = historyData.snapshots as MarketSnapshot[];
   const latestSnapshot = [...snapshots].pop();
+  const m = heroMarket(snapshots);
   return (
     <div>
+      <Breadcrumbs items={[{ label: "市場" }]} />
       <PageHeader
         kicker="市場・動向"
         title="FDE の市場と業界の動き"
         lead="案件数・単価の週次データ、大手 IT ベンダーの AI 施策、規制の動きを 1 か所に。数値はすべて出典付きの収集データです。"
       />
+      <dl className="kpi-grid" aria-label="最新の市場データ">
+        <div className="kpi-card">
+          <dt>FDE 関連の案件数</dt>
+          <dd>{m.total ?? "—"}<small> 件</small></dd>
+          <span className="kpi-sub">{m.date} 時点</span>
+          <Sparkline values={m.series.map((x) => x.total)} label="案件数の推移" />
+        </div>
+        <div className="kpi-card">
+          <dt>前回比</dt>
+          <dd className={m.delta !== null && m.delta < 0 ? "is-down" : "is-up"}>
+            {m.delta === null ? "—" : `${m.delta >= 0 ? "+" : ""}${m.delta}`}<small> 件</small>
+          </dd>
+          <span className="kpi-sub">前回 {m.prevDate ?? "—"}</span>
+        </div>
+        <div className="kpi-card">
+          <dt>単価サンプル中央値</dt>
+          <dd>{m.rateMedian ?? "—"}<small> 万円/月</small></dd>
+          <span className="kpi-sub">案件ボードの公開単価</span>
+        </div>
+        <div className="kpi-card">
+          <dt>スナップショット</dt>
+          <dd>{m.weeks}<small> 回</small></dd>
+          <span className="kpi-sub">{m.sources} ソース・週次自動収集</span>
+        </div>
+      </dl>
       <div className="card-grid" style={{ marginBottom: 32 }}>
         <Link href="/references/market-demand" className="card"><strong>需要分析</strong><span>スキル頻度・案件の傾向</span></Link>
         <Link href="/vendors" className="card"><strong>ベンダー動向</strong><span>大手 IT 8 社の AI 推進（出典付き）</span></Link>
@@ -37,24 +67,17 @@ export default function MarketPage() {
           対応状況と未対応サイトの理由は下表を参照。蓄積したスナップショットが下のグラフと魚骨図を週ごとに伸ばしていきます。
         </p>
         <MarketSourcesTable snapshots={snapshots} />
-        <StatChips
-          items={[
-            { value: `${latestSnapshot?.total ?? "—"} 件`, label: `FDE 案件（${latestSnapshot?.date ?? "—"}・3 ソース合計）` },
-            { value: `${latestSnapshot?.boardRateMedian ?? "—"} 万円`, label: "ボード単価サンプル中央値" },
-            { value: "51〜200 万円", label: "月額単価レンジ" },
-          ]}
-        />
 
 
-        <h3 style={{ margin: "24px 0 8px", fontSize: 16 }}>週別 FDE 案件数（直近 6 週）</h3>
-        <div className="trend-wrap">
+        <h3 className="chart-title">週別 FDE 案件数（直近 6 週）</h3>
+        <div className="trend-wrap panel">
           <WeeklyDemandBars snapshots={snapshots} />
         </div>
         <p className="chart-note">
           未収集の週は空欄。週次バッチが 1 本ずつ埋めていきます。
         </p>
 
-        <h3 style={{ margin: "24px 0 8px", fontSize: 16 }}>需要の推移タイムライン（魚骨図）</h3>
+        <h3 className="chart-title">需要の推移タイムライン（魚骨図）</h3>
         <p className="lead" style={{ marginBottom: 12 }}>
           背骨 = 時間（週次）、丸 = その週のボード案件数、骨 = 計測結果。今週から始めて毎週延伸します。
         </p>
@@ -62,7 +85,7 @@ export default function MarketPage() {
           <DemandFishbone snapshots={snapshots} />
         </div>
 
-        <h3 style={{ margin: "24px 0 8px", fontSize: 16 }}>FDE 案件の月額単価分布</h3>
+        <h3 className="chart-title">FDE 案件の月額単価分布</h3>
         <RatePie
           rates={[
             92.5, 105, 120, 88, 110, 90, 90, 100, 100, 120, 65, 110, 85, 145, 115, 135, 85, 95,

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { GUIDE_PARTS, listGuides, listPatterns } from "@fde/content-core";
 import { ArticleLayout, type LinkCard } from "@/components/ArticleLayout";
 import { Redirect } from "@/components/Redirect";
-import { REDIRECTS, redirectSlugs } from "@/lib/site";
+import { PART_STYLE, REDIRECTS, redirectSlugs } from "@/lib/site";
 
 export function generateStaticParams() {
   return [
@@ -53,6 +53,8 @@ export default function GuideDetailPage({ params }: { params: { slug: string } }
       owners={doc.data.owners}
       markdown={doc.content}
       linkBase="/guide"
+      accent={PART_STYLE[doc.data.part].accent}
+      icon={PART_STYLE[doc.data.part].icon}
       prev={card(index - 1)}
       next={card(index + 1)}
       related={[...samePart, ...patterns].slice(0, 6)}

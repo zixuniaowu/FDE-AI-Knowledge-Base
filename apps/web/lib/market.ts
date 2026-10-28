@@ -9,6 +9,7 @@ export interface HeroMarket {
   rateMedian: number | null;
   sources: number;
   weeks: number;
+  series: { date: string; total: number }[];
 }
 
 /** data/market-history.json（週次バッチが追記）からホームのヒーロー数値を算出する。値は加工しない。 */
@@ -27,6 +28,7 @@ export function heroMarket(snapshots: MarketSnapshot[] = historyData.snapshots a
     rateMedian: typeof last?.boardRateMedian === "number" ? last.boardRateMedian : null,
     sources: Object.keys(src).length,
     weeks: sorted.length,
+    series: sorted.filter((x) => typeof x.total === "number").map((x) => ({ date: x.date, total: x.total as number })),
   };
 }
 

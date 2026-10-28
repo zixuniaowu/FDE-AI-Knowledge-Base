@@ -5,6 +5,7 @@ import { Prose } from "./Prose";
 import { ReadingProgress } from "./ReadingProgress";
 import { StatusBadge } from "./Badges";
 import { Toc } from "./Toc";
+import { Icon, type IconName } from "./Icon";
 
 export interface LinkCard {
   href: string;
@@ -29,6 +30,9 @@ interface Props {
   related?: LinkCard[];
   relatedTitle?: string;
   before?: ReactNode;
+  /** カバー見出しの色（indigo / teal / amber / rose）とアイコン */
+  accent?: string;
+  icon?: IconName;
   children?: ReactNode;
 }
 
@@ -47,8 +51,15 @@ export function ArticleLayout(p: Props) {
       <Breadcrumbs items={p.crumbs} />
       <div className="article-grid">
         <article className="article-main">
-          <header className="article-header">
-            {p.kicker && <p className="eyebrow">{p.kicker}</p>}
+          <header className={`article-header article-cover accent-${p.accent ?? "indigo"}`}>
+            <div className="cover-top">
+              {p.icon && (
+                <span className="icon-tile">
+                  <Icon name={p.icon} size={20} />
+                </span>
+              )}
+              {p.kicker && <p className="eyebrow">{p.kicker}</p>}
+            </div>
             <h1>{p.title}</h1>
             {p.lead && <p className="lead">{p.lead}</p>}
             <p className="article-meta">
@@ -70,7 +81,7 @@ export function ArticleLayout(p: Props) {
             <nav className="pager" aria-label="前後の記事">
               {p.prev ? (
                 <Link href={p.prev.href} className="pager-link pager-prev">
-                  <span className="pager-dir">← 前へ</span>
+                  <span className="pager-dir">前へ</span>
                   <span className="pager-title">{p.prev.title}</span>
                 </Link>
               ) : (
@@ -78,7 +89,7 @@ export function ArticleLayout(p: Props) {
               )}
               {p.next && (
                 <Link href={p.next.href} className="pager-link pager-next">
-                  <span className="pager-dir">次へ →</span>
+                  <span className="pager-dir">次へ</span>
                   <span className="pager-title">{p.next.title}</span>
                 </Link>
               )}

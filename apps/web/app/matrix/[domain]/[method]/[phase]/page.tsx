@@ -59,6 +59,8 @@ export default function IntersectionPage({ params }: { params: { domain: string;
       owners={note?.data.owners}
       markdown={note?.content ?? ""}
       linkBase={`/matrix/${domain}/${method}/${phase}`}
+      accent="teal"
+      icon="grid"
       prev={nav(index - 1)}
       next={nav(index + 1)}
       related={related}

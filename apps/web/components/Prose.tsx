@@ -34,6 +34,30 @@ function isMermaidBlock(children: any): boolean {
   return String(child?.props?.className ?? "").includes("language-mermaid");
 }
 
+function textOf(node: any): string {
+  if (node == null || typeof node === "boolean") return "";
+  if (typeof node === "string" || typeof node === "number") return String(node);
+  if (Array.isArray(node)) return node.map(textOf).join("");
+  return textOf(node.props?.children);
+}
+
+type CalloutKind = "note" | "tip" | "warning" | "example";
+const CALLOUT_LABEL: Record<CalloutKind, string> = { note: "メモ", tip: "ヒント", warning: "注意", example: "例示" };
+
+/** 引用ブロックの書き出しから種類を推定する（> [!WARNING] 形式 / 「注意」「重要」/「架空」） */
+export function calloutKind(text: string): CalloutKind {
+  const t = text.trim();
+  const m = t.match(/^\[!(NOTE|TIP|WARNING|CAUTION|IMPORTANT|EXAMPLE)\]/i);
+  if (m) {
+    const k = m[1].toUpperCase();
+    return k === "TIP" ? "tip" : k === "EXAMPLE" ? "example" : k === "NOTE" ? "note" : "warning";
+  }
+  if (/^(注意|重要|警告)/.test(t)) return "warning";
+  if (/^(ヒント|コツ|Tip)/i.test(t)) return "tip";
+  if (/架空|例示|面接練習用の例/.test(t.slice(0, 60))) return "example";
+  return "note";
+}
+
 function mermaidSource(children: any): string {
   const child = Array.isArray(children) ? children[0] : children;
   return String(child?.props?.children ?? "").trim();
@@ -58,6 +82,20 @@ export function Prose({ markdown, linkBase }: { markdown: string; linkBase?: str
               </a>
             );
           },
+          blockquote: ({ children }) => {
+            const kind = calloutKind(textOf(children));
+            return (
+              <aside className={`callout callout-${kind}`} role="note">
+                <span className="callout-label">{CALLOUT_LABEL[kind]}</span>
+                <div className="callout-body">{children}</div>
+              </aside>
+            );
+          },
+          table: ({ children }) => (
+            <div className="table-wrap">
+              <table>{children}</table>
+            </div>
+          ),
           pre: ({ children }) => {
             if (isMermaidBlock(children)) {
               return <Mermaid chart={mermaidSource(children)} />;

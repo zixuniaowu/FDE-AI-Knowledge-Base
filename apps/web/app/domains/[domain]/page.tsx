@@ -41,6 +41,7 @@ export default function DomainPage({ params }: { params: { domain: string } }) {
       tags={doc.meta.tags}
       markdown={doc.content}
       linkBase={`/domains/${domain}`}
+      accent="teal"
       prev={nav(index - 1)}
       next={nav(index + 1)}
       before={

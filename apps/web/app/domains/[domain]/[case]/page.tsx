@@ -42,6 +42,8 @@ export default function UseCasePage({ params }: { params: { domain: string; case
       owners={doc.data.owners}
       markdown={doc.content}
       linkBase={`/domains/${domain}`}
+      accent="teal"
+      icon="layers"
       before={
         doc.data.phaseLinks.length > 0 ? (
           <p className="chip-row">
