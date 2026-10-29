@@ -106,7 +106,7 @@ export function MarketSourcesTable({ snapshots }: { snapshots: MarketSnapshot[] 
           const hit = latest.get(src.id);
           return (
             <tr key={src.id}>
-              <td>
+              <td data-label="データソース" className="ms-name">
                 {src.url ? (
                   <a href={src.url} target="_blank" rel="noopener noreferrer">
                     {src.name}
@@ -115,11 +115,11 @@ export function MarketSourcesTable({ snapshots }: { snapshots: MarketSnapshot[] 
                   src.name
                 )}
               </td>
-              <td>
+              <td data-label="収集方法">
                 <span className={badge(src.method)}>{src.method}</span>{" "}
                 <span className="ms-cadence">{src.cadence}</span>
               </td>
-              <td>
+              <td data-label="最新の計測値">
                 {hit ? (
                   <>
                     <strong>{hit.count} 件</strong>
@@ -131,7 +131,7 @@ export function MarketSourcesTable({ snapshots }: { snapshots: MarketSnapshot[] 
                   "未収集"
                 )}
               </td>
-              <td className="ms-note">{src.note}</td>
+              <td className="ms-note" data-label="備考">{src.note}</td>
             </tr>
           );
         })}

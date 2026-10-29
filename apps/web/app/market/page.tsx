@@ -3,7 +3,8 @@ import Link from "next/link";
 import historyData from "../../../../data/market-history.json";
 import { RatePie, WeeklyDemandBars } from "@/components/charts";
 import type { MarketSnapshot } from "@/components/charts";
-import { DemandFishbone } from "@/components/DemandFishbone";
+import { DemandFishbone, DemandTimelineMobile } from "@/components/DemandFishbone";
+import { WeeklyDemandMobile } from "@/components/MobileHome";
 import { MarketSourcesTable } from "@/components/MarketSources";
 import { PageHeader } from "@/components/PageHeader";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -82,8 +83,11 @@ export default function MarketPage() {
 
 
         <h3 className="chart-title">週別 FDE 案件数（直近 6 週）</h3>
-        <div className="trend-wrap panel">
+        <div className="trend-wrap panel only-desktop">
           <WeeklyDemandBars snapshots={snapshots} />
+        </div>
+        <div className="only-mobile">
+          <WeeklyDemandMobile snapshots={snapshots} />
         </div>
         <p className="chart-note">
           未収集の週は空欄。週次バッチが 1 本ずつ埋めていきます。
@@ -93,9 +97,10 @@ export default function MarketPage() {
         <p className="lead" style={{ marginBottom: 12 }}>
           背骨 = 時間（週次）、丸 = その週のボード案件数、骨 = 計測結果。今週から始めて毎週延伸します。
         </p>
-        <div className="fishbone-wrap">
+        <div className="fishbone-wrap only-desktop">
           <DemandFishbone snapshots={snapshots} />
         </div>
+        <DemandTimelineMobile snapshots={snapshots} />
 
         <h3 className="chart-title">FDE 案件の月額単価分布</h3>
         <RatePie

@@ -132,3 +132,36 @@ export function DemandFishbone({ snapshots }: { snapshots: FishSnapshot[] }) {
     </svg>
   );
 }
+
+/** モバイル用: 週次タイムライン（縦の背骨 + 週ごとのカード） */
+export function DemandTimelineMobile({ snapshots }: { snapshots: FishSnapshot[] }) {
+  const byWeek = new Map<string, FishSnapshot>();
+  for (const s of [...snapshots].sort((a, b) => a.date.localeCompare(b.date))) {
+    byWeek.set(weekStart(s.date), s);
+  }
+  const weeks = [...byWeek.entries()].reverse(); // 新しい週が上
+  const max = Math.max(1, ...weeks.map(([, s]) => s.freelanceBoard ?? 0));
+  return (
+    <ol className="dtm only-mobile" aria-label="FDE 需要の週次タイムライン（新しい順）">
+      {weeks.map(([key, s]) => {
+        const board = s.freelanceBoard ?? 0;
+        return (
+          <li key={key} className="dtm-item">
+            <span className="dtm-dot" style={{ width: 14 + (board / max) * 14, height: 14 + (board / max) * 14 }} aria-hidden />
+            <div className="dtm-card">
+              <div className="dtm-head">
+                <strong>{Number(key.slice(5, 7))}/{Number(key.slice(8, 10))} の週</strong>
+                <span className="dtm-tag">{s.manual ? "手動調査" : "自動収集"}</span>
+              </div>
+              <dl className="dtm-stats">
+                <div><dt>ボード</dt><dd>{board}<small> 件</small></dd></div>
+                {s.total != null && <div><dt>合計</dt><dd>{s.total}<small> 件</small></dd></div>}
+                {s.boardRateMedian ? <div><dt>単価中央値</dt><dd>{s.boardRateMedian}<small> 万円</small></dd></div> : null}
+              </dl>
+            </div>
+          </li>
+        );
+      })}
+    </ol>
+  );
+}
