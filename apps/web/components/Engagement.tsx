@@ -97,24 +97,70 @@ function useStars() {
   return n;
 }
 
-/** ヘッダーの GitHub ボタン（スター数つき。取得できなければアイコンのみ）。 */
+/** ヘッダーの Star ピル（モバイルでも常時表示）。スター数は取得できたときだけ表示。 */
 export function GitHubStarButton() {
   const n = useStars();
   return (
     <a
       href={REPO_URL}
-      className="nav-link nav-github"
+      className="gh-star-pill"
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={n === null ? "GitHub リポジトリ" : `GitHub リポジトリ（Star ${n}）`}
+      aria-label={n === null ? "GitHub で Star する" : `GitHub で Star する（現在 ${n}）`}
     >
-      <Icon name="github" size={16} />
+      <span aria-hidden>⭐</span>
+      <span className="gh-star-label">
+        Star<span className="gh-star-long"> on GitHub</span>
+      </span>
       {n !== null && (
         <span className="gh-stars" data-testid="gh-stars">
-          ★ {fmt(n)}
+          {fmt(n)}
         </span>
       )}
     </a>
+  );
+}
+
+/** ホーム hero の Star ボタン（主要 CTA と同格）。 */
+export function HeroStarButton() {
+  const n = useStars();
+  return (
+    <a href={REPO_URL} className="btn btn-star" target="_blank" rel="noopener noreferrer" data-testid="hero-star">
+      ⭐ GitHub で Star{n !== null ? <span className="btn-star-count">{fmt(n)}</span> : null}
+    </a>
+  );
+}
+
+/** 全ページ上部の細いお知らせバー（閉じると localStorage に保存）。 */
+export function StarBar() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    try {
+      setShow(!localStorage.getItem("fde-kb-starbar-dismissed"));
+    } catch {
+      setShow(true);
+    }
+  }, []);
+  if (!show) return null;
+  return (
+    <div className="star-bar" role="region" aria-label="お知らせ">
+      <a href={REPO_URL} target="_blank" rel="noopener noreferrer">
+        ⭐ 役に立ったら GitHub で Star を！<span className="star-bar-go">リポジトリを見る →</span>
+      </a>
+      <button
+        type="button"
+        className="star-bar-close"
+        aria-label="お知らせを閉じる"
+        onClick={() => {
+          setShow(false);
+          try {
+            localStorage.setItem("fde-kb-starbar-dismissed", "1");
+          } catch {}
+        }}
+      >
+        ×
+      </button>
+    </div>
   );
 }
 

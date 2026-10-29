@@ -18,3 +18,31 @@
 .star-cta-btn:hover { border-color: var(--accent); color: var(--accent); }
 .home > .star-cta { margin: 32px auto; }
 @media (max-width: 480px) { .star-cta-btn { width: 100%; justify-content: center; } }
+/* v7.1: Star を目立たせる（金色アクセント） */
+:root { --star: #f5b301; --star-strong: #d99a00; --star-ink: #3a2a00; --star-soft: #fff6d6; }
+[data-theme="dark"] { --star: #f7c33c; --star-strong: #ffd666; --star-ink: #241a00; --star-soft: #2e2508; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --star: #f7c33c; --star-strong: #ffd666; --star-ink: #241a00; --star-soft: #2e2508; } }
+.gh-star-pill {
+  display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; border-radius: 999px;
+  background: var(--star); color: var(--star-ink); font-weight: 700; font-size: var(--fs-sm); text-decoration: none;
+  white-space: nowrap; box-shadow: 0 1px 0 rgba(0,0,0,.08); transition: background .15s, transform .15s;
+}
+.gh-star-pill:hover { background: var(--star-strong); text-decoration: none; transform: translateY(-1px); }
+.gh-star-pill .gh-stars { color: var(--star-ink); background: rgba(255,255,255,.55); border-radius: 999px; padding: 0 7px; line-height: 20px; }
+@media (max-width: 860px) { .gh-star-long { display: none; } }
+@media (max-width: 380px) { .gh-star-pill { padding: 0 10px; gap: 4px; } }
+.btn-star { background: var(--star); color: var(--star-ink); border: 0; font-weight: 700; }
+.btn-star:hover { background: var(--star-strong); color: var(--star-ink); text-decoration: none; }
+.btn-star-count { margin-left: 8px; padding: 0 8px; border-radius: 999px; background: rgba(255,255,255,.55); font-variant-numeric: tabular-nums; }
+.star-bar {
+  display: flex; align-items: center; justify-content: center; gap: 8px; padding: 6px 40px 6px 12px; position: relative;
+  background: var(--star-soft); color: var(--text); font-size: var(--fs-sm); border-bottom: 1px solid var(--border);
+}
+.star-bar a { color: inherit; font-weight: 600; text-decoration: none; }
+.star-bar-go { margin-left: 10px; color: var(--accent); font-weight: 500; }
+@media (max-width: 480px) { .star-bar-go { display: none; } }
+.star-bar-close {
+  position: absolute; right: 6px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; border: 0;
+  background: transparent; color: var(--text-sub); font-size: 18px; cursor: pointer; border-radius: 6px;
+}
+.star-bar-close:hover { background: var(--border); }

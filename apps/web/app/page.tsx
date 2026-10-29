@@ -1,4 +1,4 @@
-import { StarCta } from "../components/Engagement";
+import { HeroStarButton, StarCta } from "../components/Engagement";
 import Link from "next/link";
 import {
   GUIDE_PARTS,
@@ -54,6 +54,7 @@ export default function Home() {
               <Link href="/guide/what-is-fde" className="btn btn-ghost">
                 FDE とは（第 0 章）
               </Link>
+              <HeroStarButton />
             </div>
           </div>
           <div className="hero-visual">
