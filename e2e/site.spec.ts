@@ -432,3 +432,37 @@ test.describe("ホームのモバイル表示（v5）", () => {
     await expect(page.getByTestId("skills-mobile")).toBeHidden();
   });
 });
+
+test.describe("訪問者数と GitHub Star", () => {
+  test("API 応答時は数値を表示し、375px でもはみ出さない", async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 800 });
+    await page.addInitScript(() => {
+      (globalThis as { __FDE_COUNTER_FORCE?: boolean }).__FDE_COUNTER_FORCE = true;
+    });
+    await page.route("https://abacus.jasoncameron.dev/**", (r) =>
+      r.fulfill({ json: { value: 1234 }, headers: { "access-control-allow-origin": "*" } }),
+    );
+    await page.route("https://api.github.com/**", (r) =>
+      r.fulfill({ json: { stargazers_count: 42 }, headers: { "access-control-allow-origin": "*" } }),
+    );
+    await page.goto(p("/"));
+    await expect(page.locator(".visitor-count")).toContainText("訪問者数 1,234");
+    await expect(page.getByTestId("gh-stars")).toContainText("42");
+    await expect(page.locator(".star-cta")).toBeVisible();
+    const sw = await page.evaluate(() => document.documentElement.scrollWidth);
+    expect(sw).toBeLessThanOrEqual(375);
+  });
+
+  test("API 失敗時は訪問者数を隠し、Star はアイコンのみ", async ({ page }) => {
+    await page.addInitScript(() => {
+      (globalThis as { __FDE_COUNTER_FORCE?: boolean }).__FDE_COUNTER_FORCE = true;
+    });
+    await page.route("https://abacus.jasoncameron.dev/**", (r) => r.abort());
+    await page.route("https://api.github.com/**", (r) => r.abort());
+    await page.goto(p("/guide/stakeholders"));
+    await expect(page.locator(".star-cta")).toBeVisible();
+    await page.waitForTimeout(500);
+    await expect(page.locator(".visitor-count")).toHaveCount(0);
+    await expect(page.getByTestId("gh-stars")).toHaveCount(0);
+  });
+});

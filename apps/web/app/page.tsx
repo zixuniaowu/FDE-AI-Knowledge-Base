@@ -1,3 +1,4 @@
+import { StarCta } from "../components/Engagement";
 import Link from "next/link";
 import {
   GUIDE_PARTS,
@@ -246,6 +247,7 @@ export default function Home() {
           <SkillListMobile />
         </div>
       </section>
+      <StarCta />
     </div>
   );
 }
