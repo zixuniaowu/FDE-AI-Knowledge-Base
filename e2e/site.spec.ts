@@ -449,6 +449,13 @@ test.describe("訪問者数と GitHub Star", () => {
     await expect(page.locator(".visitor-count")).toContainText("訪問者数 1,234");
     await expect(page.getByTestId("gh-stars")).toContainText("42");
     await expect(page.locator(".star-cta")).toBeVisible();
+    await expect(page.locator(".gh-star-pill")).toBeVisible();
+    await expect(page.getByTestId("hero-star")).toBeInViewport();
+    await page.locator(".star-bar-close").click();
+    await expect(page.locator(".star-bar")).toHaveCount(0);
+    await page.reload();
+    await expect(page.locator(".gh-star-pill")).toBeVisible();
+    await expect(page.locator(".star-bar")).toHaveCount(0);
     const sw = await page.evaluate(() => document.documentElement.scrollWidth);
     expect(sw).toBeLessThanOrEqual(375);
   });

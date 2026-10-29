@@ -1,4 +1,4 @@
-import { GitHubStarButton, VisitorCounter } from "../components/Engagement";
+import { GitHubStarButton, StarBar, VisitorCounter } from "../components/Engagement";
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import { Icon } from "@/components/Icon";
@@ -66,6 +66,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a href="#main" className="skip-link">
           本文へスキップ
         </a>
+        <StarBar />
         <header className="site-header">
           <div className="container">
             <Link href="/" className="brand" aria-label="FDE Knowledge Base ホーム">
