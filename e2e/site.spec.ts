@@ -386,3 +386,49 @@ test.describe("図版（v4）", () => {
     await expect(page.locator(".hero-figure .fig-wide")).toBeHidden();
   });
 });
+
+test.describe("ホームのモバイル表示（v5）", () => {
+  for (const vp of [{ width: 390, height: 844 }, { width: 360, height: 780 }]) {
+    test(`${vp.width}px: 週次推移とスキル関係がモバイル版で表示され、横はみ出しがない`, async ({ page }) => {
+      await page.setViewportSize(vp);
+      await page.goto(p("/"));
+      const weekly = page.getByTestId("weekly-mobile");
+      await expect(weekly).toBeVisible();
+      await expect(weekly.locator(".wdm-kpi")).toHaveCount(3);
+      await expect(weekly.locator(".wdm-row")).toHaveCount(6);
+      await expect(page.getByTestId("market-cta")).toBeVisible();
+      await expect(page.getByTestId("market-cta")).toHaveAttribute("href", /\/market\/?$/);
+      const skills = page.getByTestId("skills-mobile");
+      await expect(skills).toBeVisible();
+      await expect(page.locator(".kg-wrap")).toBeHidden();
+      await expect(page.locator(".weekly-bars").first()).toBeHidden();
+      // タップで内訳が開く
+      const row = weekly.locator(".wdm-row").first();
+      await row.locator("summary").click();
+      await expect(row.locator(".wdm-detail")).toBeVisible();
+      const second = skills.locator(".skm-item").nth(1);
+      await second.locator("summary").click();
+      await expect(second.locator(".skm-chip").first()).toBeVisible();
+      const m = await page.evaluate(() => {
+        const els = [...document.querySelectorAll("[data-testid=weekly-mobile] *, [data-testid=skills-mobile] *, [data-testid=market-cta]")] as HTMLElement[];
+        const vis = els.filter((e) => e.getClientRects().length && e.childNodes.length && [...e.childNodes].some((n) => n.nodeType === 3 && n.textContent!.trim()));
+        const minFont = Math.min(...vis.map((e) => parseFloat(getComputedStyle(e).fontSize)));
+        const targets = [...document.querySelectorAll("[data-testid=weekly-mobile] summary, [data-testid=skills-mobile] summary, [data-testid=skills-mobile] .skm-chip, [data-testid=market-cta]")]
+          .filter((e) => (e as HTMLElement).getClientRects().length)
+          .map((e) => e.getBoundingClientRect().height);
+        return { sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth, minFont, minTarget: Math.min(...targets) };
+      });
+      expect(m.sw).toBeLessThanOrEqual(m.cw);
+      expect(m.minFont).toBeGreaterThanOrEqual(12);
+      expect(m.minTarget).toBeGreaterThanOrEqual(44);
+    });
+  }
+
+  test("デスクトップでは従来のグラフを表示", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(p("/"));
+    await expect(page.locator(".kg-wrap")).toBeVisible();
+    await expect(page.getByTestId("weekly-mobile")).toBeHidden();
+    await expect(page.getByTestId("skills-mobile")).toBeHidden();
+  });
+});

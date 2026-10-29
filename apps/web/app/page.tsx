@@ -12,6 +12,7 @@ import { WeeklyDemandBars } from "@/components/charts";
 import { HeroDiagram } from "@/components/HeroDiagram";
 import { Icon } from "@/components/Icon";
 import { KnowledgeGraph } from "@/components/KnowledgeGraph";
+import { MarketCta, SkillListMobile, WeeklyDemandMobile } from "@/components/MobileHome";
 import { Sparkline } from "@/components/Sparkline";
 import { JOBS, PART_STYLE } from "@/lib/site";
 import { allSnapshots, heroMarket } from "@/lib/market";
@@ -217,12 +218,16 @@ export default function Home() {
         <div className="section-head">
           <p className="eyebrow">MARKET</p>
           <h2>案件数の推移（週次）</h2>
-          <p className="section-sub">
+          <p className="section-sub only-desktop">
             ソース別内訳・単価分布・魚骨図は <Link href="/market">市場</Link> へ。
           </p>
         </div>
-        <div className="panel">
+        <div className="panel only-desktop">
           <WeeklyDemandBars snapshots={allSnapshots()} />
+        </div>
+        <div className="only-mobile">
+          <WeeklyDemandMobile snapshots={allSnapshots()} />
+          <MarketCta />
         </div>
       </section>
 
@@ -234,8 +239,11 @@ export default function Home() {
             週次収集した案件データから抽出。詳しくは<Link href="/references/market-demand">需要分析</Link>。
           </p>
         </div>
-        <div className="panel kg-wrap">
+        <div className="panel kg-wrap only-desktop">
           <KnowledgeGraph />
+        </div>
+        <div className="only-mobile">
+          <SkillListMobile />
         </div>
       </section>
     </div>
