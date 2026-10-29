@@ -39,9 +39,31 @@ const PAIRS: { from: string; to: string; label: string }[] = [
 
 const nodeByKey = (key: string) => NODES.find((n) => n.key === key)!;
 
+/** モバイル: 定義（左）⇄ 検証（右）のペアを縦に積む */
+export function VModelMobile() {
+  return (
+    <ol className="vm-mobile only-mobile" aria-label="V モデル（定義と検証の対応）">
+      {PAIRS.map((p, i) => {
+        const a = nodeByKey(p.from);
+        const b = nodeByKey(p.to);
+        return (
+          <li key={p.from} style={{ marginLeft: `${i * 10}px`, marginRight: `${i * 10}px` }}>
+            <div className="vm-node vm-define"><strong>{a.title}</strong><span>{a.sub}</span></div>
+            <div className="vm-link" aria-hidden>⇄</div>
+            <div className="vm-node vm-verify"><strong>{b.title}</strong><span>{b.sub}</span></div>
+            <p className="vm-label">{p.label}</p>
+          </li>
+        );
+      })}
+    </ol>
+  );
+}
+
 export function VModel() {
   return (
+    <>
     <svg
+      className="only-desktop"
       viewBox="0 0 1080 506"
       role="img"
       aria-label="ウォーターフォールの V モデル"
@@ -190,5 +212,7 @@ export function VModel() {
         </text>
       </g>
     </svg>
+    <VModelMobile />
+    </>
   );
 }

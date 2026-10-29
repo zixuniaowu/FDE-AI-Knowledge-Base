@@ -1,0 +1,79 @@
+/* v6: 全ページのモバイル最適化 */
+
+/* 一覧ヒーローの装飾グローが横にはみ出さないように */
+.page-hero::before { inset: -40px 0 0; }
+main.container { overflow-x: clip; }
+
+/* 長い URL・英単語の折り返し */
+.prose a, .prose li, .prose p { overflow-wrap: anywhere; }
+.prose td { overflow-wrap: break-word; }
+
+@media (max-width: 640px) {
+  /* プロンプト等のテキストブロックは折り返し（コードは横スクロールのまま） */
+  pre:has(> code.language-text), pre:has(> code.language-markdown) { white-space: pre-wrap; overflow-wrap: anywhere; }
+  pre code.language-text, pre code.language-markdown { white-space: pre-wrap; }
+  pre { font-size: 12.5px; }
+
+  /* 表: 1 列目を固定して横スクロール */
+  .table-wrap, .cmp-scroll { -webkit-overflow-scrolling: touch; background:
+      linear-gradient(to left, var(--surface) 30%, transparent) right / 24px 100% no-repeat local,
+      radial-gradient(farthest-side at 100% 50%, rgba(0,0,0,.12), transparent) right / 10px 100% no-repeat scroll,
+      var(--surface); }
+  .table-wrap table { font-size: 13.5px; }
+  .table-wrap th, .table-wrap td { padding: 9px 10px; min-width: 7.5em; }
+  .table-wrap th:first-child, .table-wrap td:first-child,
+  .cmp-table th:first-child, .cmp-table td:first-child {
+    position: sticky; left: 0; z-index: 1; background: var(--surface);
+    box-shadow: 1px 0 0 var(--border); min-width: 6.5em; max-width: 9em;
+  }
+  .table-wrap thead th:first-child { background: var(--bg-sunken); z-index: 2; }
+
+  /* データソース表 → 積み重ねカード */
+  .market-sources, .market-sources tbody, .market-sources tr, .market-sources td { display: block; width: 100%; }
+  .market-sources { border: 0 !important; background: none; }
+  .market-sources thead { display: none; }
+  .market-sources tr { border: 1px solid var(--border); border-radius: 14px; background: var(--surface); padding: 10px 14px; margin-bottom: 10px; box-shadow: var(--shadow-sm); }
+  .market-sources td { border: 0 !important; padding: 4px 0 !important; display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; font-size: 13.5px; }
+  .market-sources td > * { flex: 0 0 auto; }
+  .market-sources td.ms-note { display: grid; grid-template-columns: 6.8em 1fr; }
+  .market-sources td::before { content: attr(data-label); flex: 0 0 6.8em; color: var(--text-sub); font-size: 12px; padding-top: 2px; }
+  .market-sources td.ms-name { display: block; font-weight: 700; font-size: 15px; padding-bottom: 6px !important; border-bottom: 1px solid var(--border) !important; margin-bottom: 4px; }
+  .market-sources td.ms-name::before { display: none; }
+}
+
+/* 需要タイムライン（モバイル） */
+.dtm { list-style: none; margin: 0 0 8px; padding: 0 0 0 22px; position: relative; }
+.dtm::before { content: ""; position: absolute; left: 13px; top: 6px; bottom: 6px; width: 3px; border-radius: 2px; background: var(--accent); opacity: .5; }
+.dtm-item { position: relative; margin: 0 0 12px; padding-left: 12px; }
+.dtm-dot { position: absolute; left: -9px; top: 14px; transform: translateX(-50%); border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px var(--surface); }
+.dtm-card { border: 1px solid var(--border); border-radius: 14px; background: var(--surface); padding: 10px 14px; }
+.dtm-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.dtm-tag { font-size: 11.5px; color: var(--text-sub); border: 1px solid var(--border); border-radius: 999px; padding: 1px 8px; white-space: nowrap; }
+.dtm-stats { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 6px 0 0; }
+.dtm-stats dt { font-size: 11.5px; color: var(--text-sub); }
+.dtm-stats dd { margin: 0; font-weight: 800; font-size: 18px; font-variant-numeric: tabular-nums; }
+.dtm-stats small { font-size: 12px; font-weight: 500; color: var(--text-sub); }
+
+/* マトリクス（モバイル: 領域ごとのアコーディオン） */
+.mx-card { border: 1px solid var(--border); border-radius: 14px; background: var(--surface); margin-bottom: 10px; overflow: hidden; }
+.mx-card summary { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; font-weight: 700; cursor: pointer; list-style: none; }
+.mx-card summary::-webkit-details-marker { display: none; }
+.mx-card summary::after { content: "▾"; color: var(--text-faint); margin-left: 8px; transition: transform .2s; }
+.mx-card[open] summary::after { transform: rotate(180deg); }
+.mx-count { margin-left: auto; font-size: 12px; font-weight: 500; color: var(--text-sub); }
+.mx-group { padding: 0 14px 6px; }
+.mx-method { margin: 4px 0; font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--text-faint); }
+.mx-group ul { list-style: none; margin: 0; padding: 0; }
+.mx-group li a { display: block; padding: 9px 10px; margin-bottom: 6px; border-radius: 10px; background: var(--bg-sunken); font-size: 14px; text-decoration: none; }
+.mx-domain { display: block; padding: 10px 14px 14px; font-size: 13px; }
+
+/* V モデル（モバイル） */
+.vm-mobile { list-style: none; padding: 0; margin: 0 0 8px; }
+.vm-mobile li { display: grid; grid-template-columns: 1fr auto 1fr; gap: 6px; align-items: stretch; margin-bottom: 12px; }
+.vm-node { border: 1px solid var(--border); border-radius: 12px; padding: 8px 10px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.vm-node strong { font-size: 13px; line-height: 1.35; }
+.vm-node span { font-size: 11.5px; color: var(--text-sub); line-height: 1.35; }
+.vm-define { background: color-mix(in srgb, var(--accent-soft) 60%, var(--surface)); }
+.vm-verify { background: var(--bg-sunken); }
+.vm-link { align-self: center; color: var(--accent); font-weight: 700; }
+.vm-label { grid-column: 1 / -1; margin: 0; font-size: 12px; color: var(--text-sub); text-align: center; }

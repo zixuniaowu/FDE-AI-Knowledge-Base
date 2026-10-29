@@ -16,7 +16,33 @@ export default function MatrixPage() {
         がどう動くか」への入り口です。
       </p>
 
-      <div className="matrix-wrap">
+      <div className="mx-mobile only-mobile">
+        {domains.map((d, i) => (
+          <details key={d.id} className="mx-card" open={i === 0}>
+            <summary>
+              <span>{d.icon ?? "📦"} {d.name}</span>
+              <span className="mx-count">{phases.length} 工程</span>
+            </summary>
+            {methods.map((m) => (
+              <div key={m} className="mx-group">
+                <p className="mx-method">{m}</p>
+                <ul>
+                  {phases
+                    .filter((p) => p.data.method === m)
+                    .map((p) => (
+                      <li key={p.data.id}>
+                        <Link href={`/matrix/${d.id}/${p.data.method}/${p.data.id}`}>{p.data.title}</Link>
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            ))}
+            <Link className="mx-domain" href={`/domains/${d.id}`}>{d.name} の領域ページへ →</Link>
+          </details>
+        ))}
+      </div>
+
+      <div className="matrix-wrap only-desktop">
         <table className="matrix">
           <thead>
             <tr>
