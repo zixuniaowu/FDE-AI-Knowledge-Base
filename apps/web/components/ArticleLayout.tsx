@@ -1,3 +1,4 @@
+import { StarCta } from "./Engagement";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Breadcrumbs, type Crumb } from "./Breadcrumbs";
@@ -112,6 +113,7 @@ export function ArticleLayout(p: Props) {
               </div>
             </section>
           )}
+          <StarCta />
           {p.owners && (
             <p className="article-foot">
               オーナー: {p.owners.join(" ")} ·{" "}

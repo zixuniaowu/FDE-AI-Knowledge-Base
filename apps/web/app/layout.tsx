@@ -1,3 +1,4 @@
+import { GitHubStarButton, VisitorCounter } from "../components/Engagement";
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import { Icon } from "@/components/Icon";
@@ -84,15 +85,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Icon name="search" size={16} />
                 <span className="nav-search-label">検索</span>
               </Link>
-              <a
-                href="https://github.com/zixuniaowu/FDE-AI-Knowledge-Base"
-                className="nav-link nav-github"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub リポジトリ"
-              >
-                <Icon name="github" size={16} />
-              </a>
+              <GitHubStarButton />
               <ThemeToggle />
               <details className="nav-mobile">
                 <summary aria-label="メニュー">☰</summary>
@@ -139,6 +132,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <a href="/llms.txt" target="_blank" rel="noopener noreferrer">
               llms.txt
             </a>
+            <VisitorCounter />
             <span className="build-id"> · build {BUILD_ID}</span>
           </div>
         </footer>
