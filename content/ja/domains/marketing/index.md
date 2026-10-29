@@ -110,3 +110,4 @@ flowchart LR
 - **NO.5**: 越境 EC の TikTok クリエイター探索から進行管理までを効率化（出典: Datawhale『FDE案例100』第一册 NO.5、[PDF](https://assets.datawhale.cn/Datawhale%20FDE%E6%A1%88%E4%BE%8B100.pdf) / [fde100.datawhale.cn](https://fde100.datawhale.cn)）
 - **NO.12**: アパレル EC の商品画像素材の制作フローを量産体制に（出典: Datawhale『FDE案例100』第一册 NO.12、[PDF](https://assets.datawhale.cn/Datawhale%20FDE%E6%A1%88%E4%BE%8B100.pdf) / [fde100.datawhale.cn](https://fde100.datawhale.cn)）
 - **NO.15**: 地域サービス向け短尺動画の台本制作を安定化（出典: Datawhale『FDE案例100』第一册 NO.15、[PDF](https://assets.datawhale.cn/Datawhale%20FDE%E6%A1%88%E4%BE%8B100.pdf) / [fde100.datawhale.cn](https://fde100.datawhale.cn)）
+- **浙江省編 11**: スキンケア EC で、経営者の経験に頼っていたコンテンツ制作をチームで再現できる形に整理。人員削減の依頼から、本当の課題を見つけ直した（出典: Datawhale『FDE案例100』浙江省編 浙江省編 11、[PDF](https://oss.linklearner.com/SEO/Datawhale%20FDE100%E6%A1%88%E4%BE%8B%E9%9B%86%E6%B5%99%E6%B1%9F%E7%AF%87.pdf) / [fde100.datawhale.cn](https://fde100.datawhale.cn)）

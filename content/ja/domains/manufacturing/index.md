@@ -111,3 +111,5 @@ flowchart LR
 - **NO.8**: 海外の工業企業で、部材の特定を支援して重複購買を減らす。課題が事前に決まっていない状態から現場で見つけている（出典: Datawhale『FDE案例100』第一册 NO.8、[PDF](https://assets.datawhale.cn/Datawhale%20FDE%E6%A1%88%E4%BE%8B100.pdf) / [fde100.datawhale.cn](https://fde100.datawhale.cn)）
 - **NO.17**: 受注生産の見積りで、熟練者の判断を AI が下支えする構成（出典: Datawhale『FDE案例100』第一册 NO.17、[PDF](https://assets.datawhale.cn/Datawhale%20FDE%E6%A1%88%E4%BE%8B100.pdf) / [fde100.datawhale.cn](https://fde100.datawhale.cn)）
 - **NO.20**: 受注から経営指標までの流れを見える化（出典: Datawhale『FDE案例100』第一册 NO.20、[PDF](https://assets.datawhale.cn/Datawhale%20FDE%E6%A1%88%E4%BE%8B100.pdf) / [fde100.datawhale.cn](https://fde100.datawhale.cn)）
+- **浙江省編 12**: 寝具・繊維メーカーで、少数の優秀な企画者の判断を組織で再現できる形に整理（出典: Datawhale『FDE案例100』浙江省編 浙江省編 12、[PDF](https://oss.linklearner.com/SEO/Datawhale%20FDE100%E6%A1%88%E4%BE%8B%E9%9B%86%E6%B5%99%E6%B1%9F%E7%AF%87.pdf) / [fde100.datawhale.cn](https://fde100.datawhale.cn)）
+- **浙江省編 17**: 金物メーカーで、部門間の伝言に頼っていた見積り・在庫照会・生産計画の情報の流れをつなぐ（出典: Datawhale『FDE案例100』浙江省編 浙江省編 17、[PDF](https://oss.linklearner.com/SEO/Datawhale%20FDE100%E6%A1%88%E4%BE%8B%E9%9B%86%E6%B5%99%E6%B1%9F%E7%AF%87.pdf) / [fde100.datawhale.cn](https://fde100.datawhale.cn)）

@@ -1,0 +1,10 @@
+{
+  "id": "construction",
+  "name": "建設・建築",
+  "description": "設計図書・施工管理・見積りにおける建設現場の AI 協働",
+  "icon": "🏗️",
+  "tags": ["建設", "建築", "BIM"],
+  "owners": ["@zixuniaowu"],
+  "status": "draft",
+  "updated": "2026-10-29"
+}
