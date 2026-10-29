@@ -102,3 +102,9 @@ flowchart LR
 - [ ] 配車システム・WMS・TMSとの連携方法を情シスと確認した
 - [ ] 評価セットに難しいケースを含めた
 
+## 参考: 中国の事例（Datawhale『FDE案例100』）
+
+以下は**中国の事例**を本サイトが要約したものです。詳細は原典を確認してください（[事例集の紹介ページ](/references/datawhale-fde100)）。
+
+- **NO.6**: 国境地域の越境物流で、トラックの積載計画を最適化。積載率が採算ラインに直結する業務で、作業員・物流会社・荷主の三者に利益が出る設計にした（出典: Datawhale『FDE案例100』第一册 NO.6、[PDF](https://assets.datawhale.cn/Datawhale%20FDE%E6%A1%88%E4%BE%8B100.pdf) / [fde100.datawhale.cn](https://fde100.datawhale.cn)）
+- **NO.22**: 東南アジア向けアパレル EC で、在庫・補充・広告の判断をデータ連携。人は最終確認に回し、完全自動化は目指していない（出典: Datawhale『FDE案例100』第一册 NO.22、[PDF](https://assets.datawhale.cn/Datawhale%20FDE%E6%A1%88%E4%BE%8B100.pdf) / [fde100.datawhale.cn](https://fde100.datawhale.cn)）

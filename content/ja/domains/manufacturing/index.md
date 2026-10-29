@@ -103,3 +103,11 @@ flowchart LR
 - [ ] MES・品質管理システム・文書管理（QMS）との連携方法を情シスと確認した
 - [ ] 評価セットに難しいケースを含めた
 
+## 参考: 中国の事例（Datawhale『FDE案例100』）
+
+以下は**中国の事例**を本サイトが要約したものです。詳細は原典を確認してください（[事例集の紹介ページ](/references/datawhale-fde100)）。
+
+- **NO.1**: ドイツの部品メーカーで、ベテランの暗黙知を新人教育用の知識ベースに整理。最初に「新人をどう育てているか」を観察してから技術を選んだ点が要点（出典: Datawhale『FDE案例100』第一册 NO.1、[PDF](https://assets.datawhale.cn/Datawhale%20FDE%E6%A1%88%E4%BE%8B100.pdf) / [fde100.datawhale.cn](https://fde100.datawhale.cn)）
+- **NO.8**: 海外の工業企業で、部材の特定を支援して重複購買を減らす。課題が事前に決まっていない状態から現場で見つけている（出典: Datawhale『FDE案例100』第一册 NO.8、[PDF](https://assets.datawhale.cn/Datawhale%20FDE%E6%A1%88%E4%BE%8B100.pdf) / [fde100.datawhale.cn](https://fde100.datawhale.cn)）
+- **NO.17**: 受注生産の見積りで、熟練者の判断を AI が下支えする構成（出典: Datawhale『FDE案例100』第一册 NO.17、[PDF](https://assets.datawhale.cn/Datawhale%20FDE%E6%A1%88%E4%BE%8B100.pdf) / [fde100.datawhale.cn](https://fde100.datawhale.cn)）
+- **NO.20**: 受注から経営指標までの流れを見える化（出典: Datawhale『FDE案例100』第一册 NO.20、[PDF](https://assets.datawhale.cn/Datawhale%20FDE%E6%A1%88%E4%BE%8B100.pdf) / [fde100.datawhale.cn](https://fde100.datawhale.cn)）

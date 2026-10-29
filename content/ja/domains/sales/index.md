@@ -102,3 +102,10 @@ flowchart LR
 - [ ] CRM・SFAとの連携方法を情シスと確認した
 - [ ] 評価セットに難しいケースを含めた
 
+## 参考: 中国の事例（Datawhale『FDE案例100』）
+
+以下は**中国の事例**を本サイトが要約したものです。詳細は原典を確認してください（[事例集の紹介ページ](/references/datawhale-fde100)）。
+
+- **NO.17**: 受注生産の見積り支援（出典: Datawhale『FDE案例100』第一册 NO.17、[PDF](https://assets.datawhale.cn/Datawhale%20FDE%E6%A1%88%E4%BE%8B100.pdf) / [fde100.datawhale.cn](https://fde100.datawhale.cn)）
+- **NO.18**: 上場バイオ企業で、紙の台帳から営業データ分析、さらに営業教育・採用へ段階的に拡大（出典: Datawhale『FDE案例100』第一册 NO.18、[PDF](https://assets.datawhale.cn/Datawhale%20FDE%E6%A1%88%E4%BE%8B100.pdf) / [fde100.datawhale.cn](https://fde100.datawhale.cn)）
+- **NO.23**: 建機レンタルの問い合わせ獲得と見積り。納品後に効果を追跡しなかったことを反省点に挙げている（出典: Datawhale『FDE案例100』第一册 NO.23、[PDF](https://assets.datawhale.cn/Datawhale%20FDE%E6%A1%88%E4%BE%8B100.pdf) / [fde100.datawhale.cn](https://fde100.datawhale.cn)）
