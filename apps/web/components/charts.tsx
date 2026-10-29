@@ -159,18 +159,17 @@ function weekStart(dateStr: string): string {
 }
 
 /** 直近 6 週の FDE 案件数を棒グラフで表示（データのない週は空欄） */
-export function WeeklyDemandBars({ snapshots }: { snapshots: MarketSnapshot[] }) {
-  const WEEKS = 6;
+export interface WeekSlot { key: string; label: string; board: number | null; total: number | null; date: string | null }
 
-  // 週（開始日）ごとの最新値を集計
+/** 直近 N 週のスロット（週の最新スナップショット、無い週は null） */
+export function weeklySlots(snapshots: MarketSnapshot[], WEEKS = 6): WeekSlot[] {
   const byWeek = new Map<string, MarketSnapshot>();
   for (const s of [...snapshots].sort((a, b) => a.date.localeCompare(b.date))) {
     byWeek.set(weekStart(s.date), s);
   }
-
   const now = new Date();
   const todayStart = weekStart(now.toISOString().slice(0, 10));
-  const slots: { key: string; label: string; board: number | null; total: number | null }[] = [];
+  const slots: WeekSlot[] = [];
   for (let i = WEEKS - 1; i >= 0; i--) {
     const d = new Date(todayStart + "T00:00:00Z");
     d.setUTCDate(d.getUTCDate() - i * 7);
@@ -181,8 +180,15 @@ export function WeeklyDemandBars({ snapshots }: { snapshots: MarketSnapshot[] })
       label: `${Number(key.slice(5, 7))}/${Number(key.slice(8, 10))}`,
       board: hit?.freelanceBoard ?? null,
       total: hit?.total ?? null,
+      date: hit?.date ?? null,
     });
   }
+  return slots;
+}
+
+export function WeeklyDemandBars({ snapshots }: { snapshots: MarketSnapshot[] }) {
+  const WEEKS = 6;
+  const slots = weeklySlots(snapshots, WEEKS);
 
   const maxVal =
     Math.max(50, ...slots.flatMap((s) => [s.board ?? 0, s.total ?? 0])) * 1.2;
