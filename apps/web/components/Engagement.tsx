@@ -46,8 +46,8 @@ export function VisitorCounter() {
         if (first) localStorage.setItem("fde-kb-visited", "1");
       } catch {}
       const [uv, pv, page] = await Promise.all([
-        call(first ? "hit" : "get", "uv"),
-        call("hit", "pv"),
+        call(first ? "hit" : "get", "site-uv"),
+        call("hit", "site-pv"),
         call("hit", pageKey(path)),
       ]);
       if (alive && uv !== null && pv !== null) setV({ uv, pv, page: page ?? 0 });
