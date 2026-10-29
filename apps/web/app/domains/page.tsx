@@ -2,7 +2,7 @@ import Link from "next/link";
 import { listDomains, listIntersections, listUseCases } from "@fde/content-core";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 
-export const metadata = { title: "領域別プレイブック", description: "10 業務領域ごとの法令リンク・判断表・KPI と、領域 × 工程 110 の交点プレイブック。" };
+export const metadata = { title: "領域別プレイブック", description: "12 業務領域ごとの法令リンク・判断表・KPI と、領域 × 工程 132 の交点プレイブック。" };
 
 export default function DomainsPage() {
   const domains = listDomains();

@@ -108,3 +108,4 @@ flowchart LR
 
 - **NO.6**: 国境地域の越境物流で、トラックの積載計画を最適化。積載率が採算ラインに直結する業務で、作業員・物流会社・荷主の三者に利益が出る設計にした（出典: Datawhale『FDE案例100』第一册 NO.6、[PDF](https://assets.datawhale.cn/Datawhale%20FDE%E6%A1%88%E4%BE%8B100.pdf) / [fde100.datawhale.cn](https://fde100.datawhale.cn)）
 - **NO.22**: 東南アジア向けアパレル EC で、在庫・補充・広告の判断をデータ連携。人は最終確認に回し、完全自動化は目指していない（出典: Datawhale『FDE案例100』第一册 NO.22、[PDF](https://assets.datawhale.cn/Datawhale%20FDE%E6%A1%88%E4%BE%8B100.pdf) / [fde100.datawhale.cn](https://fde100.datawhale.cn)）
+- **浙江省編 02**: 外資系メーカーの通関業務で、商品写真や書類からの情報抽出と申告データ作成を並列処理にし、繁忙期の滞留を減らす。業務を一度すべて分解して、専門判断が入る箇所を特定した（出典: Datawhale『FDE案例100』浙江省編 浙江省編 02、[PDF](https://oss.linklearner.com/SEO/Datawhale%20FDE100%E6%A1%88%E4%BE%8B%E9%9B%86%E6%B5%99%E6%B1%9F%E7%AF%87.pdf) / [fde100.datawhale.cn](https://fde100.datawhale.cn)）

@@ -338,10 +338,10 @@ test.describe("図版（v4）", () => {
   const patterns: string[] = read("patterns");
   const domains: string[] = read("domains");
 
-  test("全 14 章・9 パターン・10 領域の数がそろっている", () => {
+  test("全 14 章・9 パターン・12 領域の数がそろっている", () => {
     expect(chapters.length).toBe(14);
     expect(patterns.length).toBe(9);
-    expect(domains.length).toBe(10);
+    expect(domains.length).toBe(12);
   });
 
   for (const [kind, ids] of [["guide", chapters], ["patterns", patterns], ["domains", domains]] as const) {

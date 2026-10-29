@@ -174,7 +174,7 @@ export default function Home() {
               {domains.length} 領域 × 11 工程のすべてに、FDE の段取り・注意点・成果物・参考文献。
             </span>
             <span className="mini-matrix" aria-hidden>
-              {Array.from({ length: 110 }, (_, i) => (
+              {Array.from({ length: domains.length * 11 }, (_, i) => (
                 <i key={i} style={{ animationDelay: `${(i % 11) * 40 + Math.floor(i / 11) * 25}ms` }} />
               ))}
             </span>

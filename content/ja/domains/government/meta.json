@@ -1,0 +1,10 @@
+{
+  "id": "government",
+  "name": "行政・公共",
+  "description": "申請審査・問い合わせ対応・文書作成における自治体・行政機関の AI 協働",
+  "icon": "🏛️",
+  "tags": ["行政", "自治体", "公共"],
+  "owners": ["@zixuniaowu"],
+  "status": "draft",
+  "updated": "2026-10-29"
+}

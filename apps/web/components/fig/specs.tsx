@@ -244,4 +244,5 @@ export const PATTERN_FIGURES: Record<string, () => ReactElement> = {
 export const DOMAIN_ICON: Record<string, FigIcon> = {
   education: "school", finance: "bank", healthcare: "heart", hr: "usercheck", legal: "scale", logistics: "truck",
   manufacturing: "factory", marketing: "megaphone", sales: "handshake", "software-development": "code",
+  government: "flag", construction: "building",
 };

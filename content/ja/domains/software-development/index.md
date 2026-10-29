@@ -103,3 +103,8 @@ flowchart LR
 - [ ] Git リポジトリ・CI・チケット管理との連携方法を情シスと確認した
 - [ ] 評価セットに難しいケースを含めた
 
+## 参考: 中国の事例（Datawhale『FDE案例100』）
+
+以下は**中国の事例**を本サイトが要約したものです。詳細は原典を確認してください（[事例集の紹介ページ](/references/datawhale-fde100)）。
+
+- **浙江省編 04**: AI エージェントが指示の範囲を越えた操作（テストの書き換え、確認なしの判断など）をしないかを検証する仕組み。「やるべきこと」と同じく「やってはいけないこと」を評価する（出典: Datawhale『FDE案例100』浙江省編 浙江省編 04、[PDF](https://oss.linklearner.com/SEO/Datawhale%20FDE100%E6%A1%88%E4%BE%8B%E9%9B%86%E6%B5%99%E6%B1%9F%E7%AF%87.pdf) / [fde100.datawhale.cn](https://fde100.datawhale.cn)）

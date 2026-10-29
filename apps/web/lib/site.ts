@@ -43,7 +43,7 @@ export const JOBS: Job[] = [
   { href: "/guide/discovery", icon: "route", title: "案件を進める", desc: "発見 → 要件・KPI → 設計 → 構築 → 評価 → 本番化" },
   { href: "/guide/security-governance", icon: "shield", title: "統制とコストを押さえる", desc: "セキュリティ・ガバナンス・費用対効果・関係者" },
   { href: "/patterns", icon: "puzzle", title: "実装パターンを選ぶ", desc: "RAG・Agent・評価など 9 型の判断表と手順" },
-  { href: "/domains", icon: "grid", title: "業界別に進める", desc: "10 領域 × 11 工程、110 の交点プレイブック" },
+  { href: "/domains", icon: "grid", title: "業界別に進める", desc: "12 領域 × 11 工程、132 の交点プレイブック" },
   { href: "/guide/career-roadmap", icon: "target", title: "FDE になる・採用する", desc: "キャリア・面接対策・採用設計" },
 ];
 

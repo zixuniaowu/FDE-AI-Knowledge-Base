@@ -1,4 +1,4 @@
-"""領域ページの拡充と交点ノート（10 領域 × 11 工程）の生成。
+"""領域ページの拡充と交点ノート（全領域 × 11 工程）の生成。
 既存の交点ノートは本文を「現場メモ」として保持し、工程の型を追記する。冪等（再実行で重複しない）。"""
 import os, re, sys
 sys.path.insert(0, os.path.dirname(__file__))
@@ -149,7 +149,11 @@ updated: 2026-10-28
     print("intersections created",created,"updated",updated)
     # 領域ページ
     for dom,d in P.items():
-        fn=f"{ROOT}/domains/{dom}/index.md"; s=open(fn).read().split(MARK)[0].rstrip()
+        fn=f"{ROOT}/domains/{dom}/index.md"; raw=open(fn).read()
+        # 「参考: 中国の事例」節は手書きのため、再生成しても保持する
+        keep=re.search(r"\n## 参考: 中国の事例.*?(?=\n## |\n<!-- generated|\Z)",raw,re.S); keep=keep.group(0).strip() if keep else ""
+        raw=raw.replace(keep,"").rstrip() if keep else raw
+        s=raw.split(MARK)[0].rstrip()
         s=re.sub(r"updated: \S+","updated: 2026-10-28",s,count=1)
         s=re.sub(r"\n## 法規と保存期間（この領域の前提）\n.*?(?=\n## |\Z)","",s,flags=re.S)
         rows="\n".join(f"| [{pt[(m,ph)]}](/matrix/{dom}/{m}/{ph}) | {'ウォーターフォール' if m=='waterfall' else 'アジャイル'} | {PH[(m,ph)][3]} |" for (m,ph) in PH)
@@ -201,5 +205,5 @@ updated: 2026-10-28
 - [ ] {d['system']}との連携方法を情シスと確認した
 - [ ] 評価セットに難しいケースを含めた
 """
-        open(fn,"w").write(s+"\n")
+        open(fn,"w").write(s+("\n"+keep+"\n" if keep else "\n"))
 main()
