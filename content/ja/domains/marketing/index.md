@@ -103,3 +103,10 @@ flowchart LR
 - [ ] CMS・MA・調査ツールとの連携方法を情シスと確認した
 - [ ] 評価セットに難しいケースを含めた
 
+## 参考: 中国の事例（Datawhale『FDE案例100』）
+
+以下は**中国の事例**を本サイトが要約したものです。詳細は原典を確認してください（[事例集の紹介ページ](/references/datawhale-fde100)）。
+
+- **NO.5**: 越境 EC の TikTok クリエイター探索から進行管理までを効率化（出典: Datawhale『FDE案例100』第一册 NO.5、[PDF](https://assets.datawhale.cn/Datawhale%20FDE%E6%A1%88%E4%BE%8B100.pdf) / [fde100.datawhale.cn](https://fde100.datawhale.cn)）
+- **NO.12**: アパレル EC の商品画像素材の制作フローを量産体制に（出典: Datawhale『FDE案例100』第一册 NO.12、[PDF](https://assets.datawhale.cn/Datawhale%20FDE%E6%A1%88%E4%BE%8B100.pdf) / [fde100.datawhale.cn](https://fde100.datawhale.cn)）
+- **NO.15**: 地域サービス向け短尺動画の台本制作を安定化（出典: Datawhale『FDE案例100』第一册 NO.15、[PDF](https://assets.datawhale.cn/Datawhale%20FDE%E6%A1%88%E4%BE%8B100.pdf) / [fde100.datawhale.cn](https://fde100.datawhale.cn)）

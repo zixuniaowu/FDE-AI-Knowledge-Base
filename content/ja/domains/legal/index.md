@@ -104,3 +104,9 @@ flowchart LR
 - [ ] 契約管理システム（CLM）・文書管理との連携方法を情シスと確認した
 - [ ] 評価セットに難しいケースを含めた
 
+## 参考: 中国の事例（Datawhale『FDE案例100』）
+
+以下は**中国の事例**を本サイトが要約したものです。詳細は原典を確認してください（[事例集の紹介ページ](/references/datawhale-fde100)）。
+
+- **NO.3**: 訴訟チーム向けに、資料の読み込みから書面作成までを支援する作業環境を構築。大量資料の整理時間を大きく減らしたと報告（出典: Datawhale『FDE案例100』第一册 NO.3、[PDF](https://assets.datawhale.cn/Datawhale%20FDE%E6%A1%88%E4%BE%8B100.pdf) / [fde100.datawhale.cn](https://fde100.datawhale.cn)）
+- **NO.19**: 消費財のパッケージ表示（栄養成分などの記載）を検証可能なルールとして審査（出典: Datawhale『FDE案例100』第一册 NO.19、[PDF](https://assets.datawhale.cn/Datawhale%20FDE%E6%A1%88%E4%BE%8B100.pdf) / [fde100.datawhale.cn](https://fde100.datawhale.cn)）

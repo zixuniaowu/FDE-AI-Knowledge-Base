@@ -103,3 +103,9 @@ flowchart LR
 - [ ] 会計システム・ERPとの連携方法を情シスと確認した
 - [ ] 評価セットに難しいケースを含めた
 
+## 参考: 中国の事例（Datawhale『FDE案例100』）
+
+以下は**中国の事例**を本サイトが要約したものです。詳細は原典を確認してください（[事例集の紹介ページ](/references/datawhale-fde100)）。
+
+- **NO.9**: 国有企業の研究機関で、経費精算時の費目判断や関連情報の収集を自動化。規則が多く情報が分散した業務の典型（出典: Datawhale『FDE案例100』第一册 NO.9、[PDF](https://assets.datawhale.cn/Datawhale%20FDE%E6%A1%88%E4%BE%8B100.pdf) / [fde100.datawhale.cn](https://fde100.datawhale.cn)）
+- **NO.10**: 実店舗の売上と入金の照合（消込）を自動化（出典: Datawhale『FDE案例100』第一册 NO.10、[PDF](https://assets.datawhale.cn/Datawhale%20FDE%E6%A1%88%E4%BE%8B100.pdf) / [fde100.datawhale.cn](https://fde100.datawhale.cn)）
