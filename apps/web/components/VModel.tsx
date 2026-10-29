@@ -62,7 +62,6 @@ export function VModelMobile() {
 export function VModel() {
   return (
     <>
-    <VModelMobile />
     <svg
       className="only-desktop"
       viewBox="0 0 1080 506"
@@ -213,6 +212,7 @@ export function VModel() {
         </text>
       </g>
     </svg>
+    <VModelMobile />
     </>
   );
 }
