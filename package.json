@@ -26,9 +26,9 @@
     "pretypecheck": "pnpm build:mobile-content"
   },
   "devDependencies": {
-    "@playwright/test": "^1.47.0",
-    "tsx": "^4.19.0",
-    "typescript": "^5.5.4",
+    "@playwright/test": "^1.64.1",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3",
     "vitest": "^2.1.9"
   }
 }
